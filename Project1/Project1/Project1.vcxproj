@@ -115,13 +115,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bubble.cpp" />
+    <ClCompile Include="car.cpp" />
     <ClCompile Include="chessBasic.cpp" />
     <ClCompile Include="John.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="slave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bubble.h" />
+    <ClInclude Include="car.h" />
     <ClInclude Include="chessBasic.h" />
     <ClInclude Include="John.h" />
+    <ClInclude Include="slave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

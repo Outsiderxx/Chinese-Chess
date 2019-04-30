@@ -3,5 +3,5 @@
 int main()
 {
 	play();
-
+	return 0;
 }

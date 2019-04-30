@@ -5,6 +5,8 @@ class chessBasic
 {
 public:
 	bool getstatus();
+	void setx(int);
+	void sety(int);
 	int getx();
 	int gety();
 
