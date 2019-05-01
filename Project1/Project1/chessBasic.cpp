@@ -5,6 +5,10 @@ bool chessBasic::getstatus()
 	return status;
 }
 
+void chessBasic::setStatus(bool life) //0 = die 1 = life
+{
+	status = life;
+}
 void chessBasic::setx(int nowx)
 {
 	x = nowx;
