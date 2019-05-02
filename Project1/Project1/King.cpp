@@ -23,7 +23,7 @@ bool King::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		//move again
 		return 0;
 	}
-	if ((dest_x != nowx && dest_y != nowy) || (dest_x == nowx && (dest_y > nowy + 1 || dest_y < nowy - 1) || (dest_y == nowy && (dest_x > nowx + 1 || dest_x < nowx - 1))		//illegal moving
+	if ((dest_x != nowx && dest_y != nowy) || (dest_x == nowx && (dest_y > nowy + 1 || dest_y < nowy - 1)) || (dest_y == nowy && (dest_x > nowx + 1 || dest_x < nowx - 1)))			//illegal moving
 	{
 		//move again
 		return 0;
