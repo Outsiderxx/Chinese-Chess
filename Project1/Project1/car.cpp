@@ -5,11 +5,11 @@ car::car(int nowx, int nowy, int type)
 {
 	setx(nowx);
 	sety(nowy);
-	if (type == 7) //black
+	if (type == 4) //black
 	{
 		setCamp(false);
 	}
-	else if (type == 14) //red
+	else if (type == 11) //red
 	{
 		setCamp(true);
 	}
@@ -23,6 +23,14 @@ bool car::isMovable(int dest_x, int dest_y, const int *board[])
 	{
 		//move again.
 		return 0;
+	}
+	if (!getCamp())
+	{
+		if (board[dest_x][dest_y] >= 1 && board[dest_x][dest_y] <= 7) { return 0; } //same camp in black
+	}
+	else
+	{
+		if (board[dest_x][dest_y] >= 8 && board[dest_x][dest_y] <= 14) { return 0; } //same camp in red
 	}
 	if (((dest_x == nowx) && (dest_y != nowy)) || ((dest_x != nowx) && (dest_y == nowy))) //destnation should be car's row or column, or move again.
 	{

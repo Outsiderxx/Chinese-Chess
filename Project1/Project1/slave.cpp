@@ -28,6 +28,7 @@ bool slave::isMovable(int dest_x, int dest_y, const int *board[])
 	}
 	if (!getCamp())  // black
 	{
+		if (board[dest_x][dest_y] >= 1 && board[dest_x][dest_y] <= 7) { return 0; } // the same camp
 		if (nowy >= 5) passRiverOrNot = true;
 		if (dest_y < nowy) //slave cannot go back.
 		{
@@ -42,12 +43,12 @@ bool slave::isMovable(int dest_x, int dest_y, const int *board[])
 				return 0;
 			}
 		}
-		//satisfy the upper condition, slave can move.
 		return 1;
 	}
 	else		// red
 	{
 		if (nowy <= 4) passRiverOrNot = true;
+		if (board[dest_x][dest_y] >= 8 && board[dest_x][dest_y] <= 14) { return 0; } // the same camp
 		if (dest_y > nowy) //slave cannot go back.
 		{
 			//move again.
@@ -61,7 +62,6 @@ bool slave::isMovable(int dest_x, int dest_y, const int *board[])
 				return 0;
 			}
 		}
-		//satisfy the upper condition, slave can move.
 		return 1;
 	}
 }
