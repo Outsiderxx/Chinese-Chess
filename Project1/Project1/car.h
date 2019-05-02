@@ -4,8 +4,8 @@ class car:chessBasic
 {
 public:
 	car();
-	car(int, int);
+	car(int, int, int);
 	~car();
-	void move(int, int);
+	bool isMovable(int, int,const int *board[]);
 };
 

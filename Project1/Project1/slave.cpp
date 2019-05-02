@@ -15,16 +15,16 @@ slave::slave(int nowx, int nowy, int type)
 	}
 }
 slave::~slave(){}
-bool slave::isMovable(int dest_x, int dest_y)
+bool slave::isMovable(int dest_x, int dest_y, const int *board[])
 {
 	bool passRiverOrNot = false;
 	int nowx = getx();
 	int nowy = gety();
-	int board[9][10] = { 0 }; //assume the initial board
 
 	if (dest_x == nowx && dest_y == nowy) //move to the original position.
 	{
 		//move again.
+		return 0;
 	}
 	if (!getCamp())  // black
 	{
@@ -32,23 +32,18 @@ bool slave::isMovable(int dest_x, int dest_y)
 		if (dest_y < nowy) //slave cannot go back.
 		{
 			//move again.
+			return 0;
 		}
 		if (!passRiverOrNot) //slave cannot go left or right before pass the river.
 		{
 			if (dest_x != nowx)
 			{
 				//move again.
+				return 0;
 			}
 		}
 		//satisfy the upper condition, slave can move.
-		if (board[dest_x][dest_y] != 0) // if this move is eat other chess
-		{
-			//setting other chess's status.
-		}
-		board[nowx][nowy] = 0;
-		board[dest_x][dest_y] = 7;
-		setx(dest_x);
-		sety(dest_y);
+		return 1;
 	}
 	else		// red
 	{
@@ -56,22 +51,17 @@ bool slave::isMovable(int dest_x, int dest_y)
 		if (dest_y > nowy) //slave cannot go back.
 		{
 			//move again.
+			return 0;
 		}
 		if (!passRiverOrNot) //slave cannot go left or right before pass the river.
 		{
 			if (dest_x != nowx)
 			{
 				//move again.
+				return 0;
 			}
 		}
 		//satisfy the upper condition, slave can move.
-		if (board[dest_x][dest_y] != 0) // if this move is eat other chess
-		{
-			//setting other chess's status.
-		}
-		board[nowx][nowy] = 0;
-		board[dest_x][dest_y] = 14;
-		setx(dest_x);
-		sety(dest_y);
+		return 1;
 	}
 }

@@ -6,6 +6,6 @@ public:
 	slave();
 	slave(int, int, int);
 	~slave();
-	bool isMovable(int, int);
+	bool isMovable(int, int,const int *board[]);
 };
 
