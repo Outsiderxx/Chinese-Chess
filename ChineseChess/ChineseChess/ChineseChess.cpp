@@ -9,10 +9,10 @@ using namespace std;
 //intent:進行遊戲
 //pre:傳入棋局
 //post:回傳棋局結果
-bool ChineseChess::playGame(string chessBoard)
+void ChineseChess::playGame()
 {
 	//初始化棋局
-	ChessBoard board(chessBoard);
+	ChessBoard board(playBoard,turn);
 	//是否已選棋
 	bool haveChose = 0;
 	//目前下棋方
@@ -38,9 +38,10 @@ bool ChineseChess::playGame(string chessBoard)
 				if (!haveChose)
 				{
 					//選擇棋子
-					board.chooseChess(chess);
-					//改變選棋狀態
-					haveChose = 1;
+					bool chooseFlag = 0;
+					chooseFlag = board.chooseChess(&chess);
+					if(chooseFlag)
+						haveChose = 1;
 				}
 				//已選擇棋子，進行移動
 				else
@@ -50,14 +51,22 @@ bool ChineseChess::playGame(string chessBoard)
 					{
 						int haveWin = 0;
 						//進行移動
-						haveWin = board.move();
+						haveWin = board.move(chess,board.getCurX(),board.getCurY());
 						//判斷勝負狀態
 						if (haveWin == 1)
-							return 0;
+						{
+							cout << "黑方勝" << endl;
+							break;
+						}
 						else if (haveWin == 2)
-							return 1;
+						{
+							cout << "紅方勝" << endl;
+							break;
+						}
 						//改變選棋狀態
 						haveChose = 0;
+						//儲存棋局
+						board.saveBoard();
 						//換另一方動作
 						board.changeTurn();
 					}
@@ -79,14 +88,14 @@ void ChineseChess::action()
 {
 	if (this->gameMode == 1)
 	{
-
+		this->setPlayBoard("oldBoard.txt");
 	}
 	else if (this->gameMode == 2)
 		this->getManual();
 	else if (this->gameMode == 3)
 		this->exitGame();
 	else
-		this->playGame("initial.txt");
+		this->setPlayBoard("initial.txt");
 }
 
 //intent:顯示說明
@@ -149,6 +158,37 @@ void ChineseChess::setMode()
 				//確認模式，跳出選擇
 				break;
 			}
+		}
+	}
+}
+
+void ChineseChess::setPlayBoard(string file)
+{
+	ifstream inputFile(file);
+	if (file == "initial.txt")
+	{
+		playBoard.resize(9);
+		for (int i = 0; i < 9; i++)
+		{
+			playBoard[i].resize(10);
+		}
+		for (int i = 0; i < 9; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				inputFile >> playBoard[i][j];
+			}
+		}
+		inputFile >> turn;
+	}
+	else
+	{
+		vector<vector<int>> tmp;
+		bool tmpTurn;
+		tmp.resize(9);
+		for (int i = 0; i < 9; i++)
+		{
+			tmp[i].resize(10);
 		}
 	}
 }
