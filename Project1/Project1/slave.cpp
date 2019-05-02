@@ -7,15 +7,15 @@ slave::slave(int nowx, int nowy, int type)
 	sety(nowy);
 	if (type == 7) //black
 	{
-		camp = false;
+		setCamp(false);
 	}
 	else if(type == 14) //red
 	{
-		camp = true;
+		setCamp(true);
 	}
 }
 slave::~slave(){}
-void slave::move(int dest_x,int dest_y)
+bool slave::isMovable(int dest_x, int dest_y)
 {
 	bool passRiverOrNot = false;
 	int nowx = getx();
@@ -26,7 +26,7 @@ void slave::move(int dest_x,int dest_y)
 	{
 		//move again.
 	}
-	if (!camp)  // black
+	if (!getCamp())  // black
 	{
 		if (nowy >= 5) passRiverOrNot = true;
 		if (dest_y < nowy) //slave cannot go back.

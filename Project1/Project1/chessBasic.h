@@ -4,17 +4,14 @@ using namespace std;
 class chessBasic
 {
 public:
-	bool getstatus();
-	void setStatus(bool);
 	void setx(int);
 	void sety(int);
 	int getx();
 	int gety();
+	void setCamp(bool);
+	bool getCamp();
+	virtual bool isMovable() = 0;
 private:
-	bool status;
-	int x;
-	int y;
+	int x, y;
+	bool camp;
 };
-
-
-

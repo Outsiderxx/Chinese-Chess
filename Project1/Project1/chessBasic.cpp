@@ -1,14 +1,5 @@
 #include "chessBasic.h"
 
-bool chessBasic::getstatus()
-{
-	return status;
-}
-
-void chessBasic::setStatus(bool life) //0 = die 1 = life
-{
-	status = life;
-}
 void chessBasic::setx(int nowx)
 {
 	x = nowx;
@@ -24,4 +15,14 @@ int chessBasic::getx()
 int chessBasic::gety()
 {
 	return y;
+}
+
+bool chessBasic::getCamp()
+{
+	return camp;
+}
+
+void chessBasic::setCamp(bool whichCamp)
+{
+	camp = whichCamp;
 }
