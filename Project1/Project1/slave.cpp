@@ -1,5 +1,4 @@
 #include "slave.h"
-
 slave::slave(){}
 slave::slave(int nowx, int nowy, int type)
 {
@@ -15,7 +14,7 @@ slave::slave(int nowx, int nowy, int type)
 	}
 }
 slave::~slave(){}
-bool slave::isMovable(int dest_x, int dest_y, const int *board[])
+bool slave::isMovable(int dest_x, int dest_y, vector< vector<int> > board)
 {
 	bool passRiverOrNot = false;
 	int nowx = getx();

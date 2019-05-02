@@ -1,6 +1,5 @@
 #include "car.h"
-#include<vector>
-car::car() {}
+car::car(){}
 car::car(int nowx, int nowy, int type)
 {
 	setx(nowx);
