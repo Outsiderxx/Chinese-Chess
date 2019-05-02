@@ -1,54 +1,76 @@
 #include "car.h"
-
-car::car(){}
+#include<iostream>
+car::car() {}
 car::car(int nowx, int nowy)
 {
 	setx(nowx);
 	sety(nowy);
 }
 
-car::~car(){}
+car::~car() {}
 
 void car::move(int dest_x, int dest_y)
 {
 	int nowx = getx();
 	int nowy = gety();
-	int board[9][10] = { 0 }; //假設的棋盤 之後用main裡的
-	if (dest_x == nowx && dest_y == nowy) //移動到原位 重新移動
+	int board[9][10] = { 0 }; //assume the initial board
+	if (dest_x == nowx && dest_y == nowy) //move to the original position.
 	{
-		//重新輸入目的地
+		//move again.
 	}
-	if (((dest_x == nowx) && (dest_y != nowy)) || ((dest_x != nowx) && (dest_y == nowy))) //目的地為直行或橫列才能移動
+	if (((dest_x == nowx) && (dest_y != nowy)) || ((dest_x != nowx) && (dest_y == nowy))) //destnation should be car's row or column, or move again.
 	{
-		if ((dest_x == nowx) && (dest_y != nowy)) //直行移動
+		if ((dest_x == nowx) && (dest_y != nowy)) //move in a column.
 		{
-			if (dest_y < nowy) //向上走
+			int distance = dest_y - nowy;
+			bool obstacle = false;
+			if (distance < 0) //go up.
 			{
-				
+				for (int i = nowy - 1; i > dest_y; --i)
+				{
+					if (board[dest_x][i] != 0)
+					{
+						obstacle = true;
+						break;
+					}
+				}
+				if (obstacle)
+				{
+					//move again.
+					int A;
+				}
+				else
+				{
+					
+					board[nowx][nowy] = 0;
+					board[dest_x]
+				}
+
 			}
-			else if(dest_y > nowy) //向下走
+			else if (distance > 0) //go down.
 			{
 
 			}
 		}
-		else if((dest_x != nowx) && (dest_y == nowy)) //橫列移動
+		else if ((dest_x != nowx) && (dest_y == nowy)) //move in a row.
 		{
-			if (dest_x < nowx) //向左走
+			if (dest_x < nowx) //go left.
 			{
 
 			}
-			else if(dest_x > nowx) //向右走
+			else if (dest_x > nowx) //go right.
 			{
 
 			}
 		}
-		else //例外狀況 應該不會觸發 以防萬一寫一下
+		else //prevent the exceptional condition.
 		{
-			//重新輸入目的地
+			std::cout << "exceptional condition in car.cpp" << endl;
+			//move again.
 		}
 	}
 	else
 	{
-		//重新輸入目的地
+		//move again.
 	}
 }
