@@ -20,26 +20,31 @@ void slave::move(int dest_x,int dest_y)
 	bool passRiverOrNot = false;
 	int nowx = getx();
 	int nowy = gety();
-	int board[9][10] = { 0 }; //假設的棋盤 之後用main裡的
-	if (dest_x == nowx && dest_y == nowy) //移動到原位 重新移動
+	int board[9][10] = { 0 }; //assume the initial board
+
+	if (dest_x == nowx && dest_y == nowy) //move to the original position.
 	{
-		//重新輸入目的地
+		//move again.
 	}
 	if (!camp)  // black
 	{
 		if (nowy >= 5) passRiverOrNot = true;
-		if (dest_y < nowy) //卒不後退
+		if (dest_y < nowy) //slave cannot go back.
 		{
-			//重新輸入目的地
+			//move again.
 		}
-		if (!passRiverOrNot) //未過河不走左右
+		if (!passRiverOrNot) //slave cannot go left or right before pass the river.
 		{
 			if (dest_x != nowx)
 			{
-				//重新輸入目的地
+				//move again.
 			}
 		}
-		//滿足以上條件 則代表卒能移動
+		//satisfy the upper condition, slave can move.
+		if (board[dest_x][dest_y] != 0) // if this move is eat other chess
+		{
+			//setting other chess's status.
+		}
 		board[nowx][nowy] = 0;
 		board[dest_x][dest_y] = 7;
 		setx(dest_x);
@@ -48,16 +53,21 @@ void slave::move(int dest_x,int dest_y)
 	else		// red
 	{
 		if (nowy <= 4) passRiverOrNot = true;
-		if (dest_y > nowy) //卒不後退
+		if (dest_y > nowy) //slave cannot go back.
 		{
-			//重新輸入目的地
+			//move again.
 		}
-		if (!passRiverOrNot) //未過河不走左右
+		if (!passRiverOrNot) //slave cannot go left or right before pass the river.
 		{
 			if (dest_x != nowx)
 			{
-				//重新輸入目的地
+				//move again.
 			}
+		}
+		//satisfy the upper condition, slave can move.
+		if (board[dest_x][dest_y] != 0) // if this move is eat other chess
+		{
+			//setting other chess's status.
 		}
 		board[nowx][nowy] = 0;
 		board[dest_x][dest_y] = 14;
