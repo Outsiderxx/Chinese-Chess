@@ -12,7 +12,7 @@ using namespace std;
 void ChineseChess::playGame()
 {
 	//初始化棋局
-	ChessBoard board(playBoard,turn);
+	ChessBoard board(initialPlayBoard,initialTurn);
 	//是否已選棋
 	bool haveChose = 0;
 	//目前下棋方
@@ -51,7 +51,7 @@ void ChineseChess::playGame()
 					{
 						int haveWin = 0;
 						//進行移動
-						haveWin = board.move(chess,board.getCurX(),board.getCurY());
+						haveWin = board.move(chess);
 						//判斷勝負狀態
 						if (haveWin == 1)
 						{
@@ -75,7 +75,12 @@ void ChineseChess::playGame()
 			//輸入ESC
 			else if (input == 27)
 			{
-				board.menu();
+				int leaveFlag;
+				leaveFlag = board.menu();
+				if (leaveFlag == 1)
+					exitGame();
+				else if (leaveFlag == 2)
+					getManual();
 			}
 		}
 	}
@@ -86,16 +91,20 @@ void ChineseChess::playGame()
 //post:依照選擇模式進行動作
 void ChineseChess::action()
 {
-	if (this->gameMode == 1)
+	if (gameMode == 1)
 	{
-		this->setPlayBoard("oldBoard.txt");
+		setPlayBoard("oldBoard.txt");
+		playGame();
 	}
-	else if (this->gameMode == 2)
-		this->getManual();
-	else if (this->gameMode == 3)
-		this->exitGame();
+	else if (gameMode == 2)
+		getManual();
+	else if (gameMode == 3)
+		exitGame();
 	else
-		this->setPlayBoard("initial.txt");
+	{
+		setPlayBoard("initial.txt");
+		playGame();
+	}
 }
 
 //intent:顯示說明
@@ -138,18 +147,18 @@ void ChineseChess::setMode()
 				//輸入鍵為UP
 				if (input == 72)
 				{
-					if (this->gameMode == 0)
-						this->gameMode = 3;
+					if (gameMode == 0)
+						gameMode = 3;
 					else
-						this->gameMode--;
+						gameMode--;
 				}
 				//輸入鍵為DOWN
 				else if (input == 80)
 				{
-					if (this->gameMode == 3)
-						this->gameMode = 0;
+					if (gameMode == 3)
+						gameMode = 0;
 					else
-						this->gameMode++;
+						gameMode++;
 				}
 			}
 			//輸入鍵為ENTER
@@ -162,33 +171,104 @@ void ChineseChess::setMode()
 	}
 }
 
+//取得初始棋局和下棋方
 void ChineseChess::setPlayBoard(string file)
 {
 	ifstream inputFile(file);
+	initialPlayBoard.resize(10);
+	for (int i = 0; i < 10; i++)
+	{
+		initialPlayBoard[i].resize(9);
+	}
+	//正常開局
 	if (file == "initial.txt")
 	{
-		playBoard.resize(9);
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 10; i++)
 		{
-			playBoard[i].resize(10);
-		}
-		for (int i = 0; i < 9; i++)
-		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < 9; j++)
 			{
-				inputFile >> playBoard[i][j];
+				inputFile >> initialPlayBoard[i][j];
 			}
 		}
-		inputFile >> turn;
+		inputFile >> initialTurn;
 	}
+	//殘局
 	else
 	{
-		vector<vector<int>> tmp;
+		//讀取所有殘局
+		vector<vector<vector<int>>> allBoard;
+		vector<vector<int>> tmpBoard;
+		vector<bool> allTurn;
 		bool tmpTurn;
-		tmp.resize(9);
-		for (int i = 0; i < 9; i++)
+		tmpBoard.resize(10);
+		for (int i = 0; i < 10; i++)
 		{
-			tmp[i].resize(10);
+			tmpBoard[i].resize(9);
+		}
+		while (true)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					inputFile >> tmpBoard[i][j];
+				}
+			}
+			inputFile >> tmpTurn;
+			if (inputFile.eof())
+				break;
+			allBoard.push_back(tmpBoard);
+			allTurn.push_back(tmpTurn);
+		}
+		//選擇殘局
+		bool chooseFile = 0;
+		int index = 0;
+		while (true)
+		{
+			if (kbhit())
+			{
+				int input = getch();
+				if (input == 224)
+				{
+					input = getch();
+					if (input == 72)
+					{
+						if (index == 0)
+							index = allBoard.size() - 1;
+						else
+							index--;
+					}
+					else if (input == 80)
+					{
+						if (index == allBoard.size() - 1)
+							index = 0;
+						else
+							index++;
+					}
+				}
+				else if (input == 13)
+				{
+					if (chooseFile)
+					{
+						initialPlayBoard = allBoard[index];
+						initialTurn = allTurn[index];
+						break;
+					}
+					else
+					{
+						//輸出殘局預覽畫面
+						input = getch();
+						if (input == 13)
+							chooseFile = 1;
+					}
+				}
+				else if (input == 27)
+				{
+					if (chooseFile)
+						chooseFile = 0;
+				}
+			}
 		}
 	}
+	inputFile.close();
 }

@@ -23,9 +23,9 @@ public:
 	//選擇要移動的旗子
 	bool chooseChess(chessBasic**);
 	//遊戲中按ESC叫出菜單
-	void menu(void);
+	int menu(void);
 	//移動棋子
-	int move(chessBasic*,int,int);
+	int move(chessBasic*);
 	//儲存每一首狀況
 	void saveBoard(void);
 	//儲存當前棋局在檔案中
@@ -34,6 +34,7 @@ public:
 	void regret(void);
 private:
 	vector<vector<int>> curBoard;
+	vector<vector<vector<int>>> preBoard;
 	bool turn;
 	int curX, curY;
 };

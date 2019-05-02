@@ -13,8 +13,7 @@ public:
 	void exitGame();
 	void setMode();
 private:
-	int gameMode;
-	vector<vector<int>> playBoard;
-	vector<vector<vector<int>>> oldBoard;
-	bool turn;
+	int gameMode = 0;
+	vector<vector<int>> initialPlayBoard;
+	bool initialTurn;
 };
