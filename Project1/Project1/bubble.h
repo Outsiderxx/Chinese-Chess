@@ -6,6 +6,6 @@ public:
 	bubble();
 	bubble(int, int, int);
 	~bubble();
-	bool isMovable(int, int, const int *board[]);
+	bool isMovable(int, int, vector<vector<int> >);
 };
 
