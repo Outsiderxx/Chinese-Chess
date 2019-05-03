@@ -6,12 +6,18 @@ class ChineseChess
 {
 public:
 	ChineseChess() :gameMode(0) {}
-	void setPlayBoard(string);
+	//開始
 	void playGame(void);
-	void action();
-	void getManual();
-	void exitGame();
+	//設定模式
 	void setMode();
+	//依照gameMode做相對應的動作
+	void action();
+	//棋局設定
+	void setPlayBoard(string);
+	//取得說明書
+	void getManual();
+	//離開遊戲
+	void exitGame();
 private:
 	int gameMode = 0;
 	vector<vector<int>> initialPlayBoard;

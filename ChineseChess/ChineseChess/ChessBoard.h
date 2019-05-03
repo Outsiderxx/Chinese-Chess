@@ -21,7 +21,7 @@ public:
 	//移動座標
 	void changeCoordinate(void);
 	//選擇要移動的旗子
-	bool chooseChess(chessBasic**);
+	bool chooseChess(chessBasic*);
 	//遊戲中按ESC叫出菜單
 	int menu(void);
 	//移動棋子
@@ -32,6 +32,8 @@ public:
 	void saveFile(void);
 	//悔棋
 	void regret(void);
+	//取得棋盤
+	vector<vector<int>> getBoard(void);
 private:
 	vector<vector<int>> curBoard;
 	vector<vector<vector<int>>> preBoard;

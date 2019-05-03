@@ -83,36 +83,6 @@ void ChessBoard::changeCoordinate(void)
 	}
 }
 
-//選擇要移動的棋子
-bool ChessBoard::chooseChess(chessBasic**)
-{
-	int chessType = getChess(),nowTurn=getTurn();
-	int curX = getCurX(), curY = getCurX();
-	if (nowTurn)
-	{
-		if (chessType < 8)
-			return 0;
-		switch (chessType)
-		{
-			//紅方
-		default:
-			break;
-		}
-	}
-	else
-	{
-		if (chessType > 7)
-			return 0;
-		switch (chessType)
-		{
-			//黑方
-		default:
-			break;
-		}
-	}
-	return 1;
-}
-
 //顯示菜單
 int ChessBoard::menu(void)
 {    
@@ -199,7 +169,7 @@ void ChessBoard::saveFile(void)
 	output << turn << endl;
 }
 
-
-
-
-
+vector<vector<int>> ChessBoard::getBoard(void)
+{
+	return curBoard;
+}

@@ -139,16 +139,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bubble.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="ChessBasic.cpp" />
     <ClCompile Include="ChessBoard.cpp" />
     <ClCompile Include="ChineseChess.cpp" />
+    <ClCompile Include="Counselor.cpp" />
+    <ClCompile Include="Elephant.cpp" />
+    <ClCompile Include="Horse.cpp" />
+    <ClCompile Include="King.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="slave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bubble.h" />
+    <ClInclude Include="Car.h" />
     <ClInclude Include="ChessBasic.h" />
     <ClInclude Include="ChessBoard.h" />
     <ClInclude Include="ChineseChess.h" />
+    <ClInclude Include="Counselor.h" />
+    <ClInclude Include="Elephant.h" />
+    <ClInclude Include="Horse.h" />
+    <ClInclude Include="King.h" />
     <ClInclude Include="slave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

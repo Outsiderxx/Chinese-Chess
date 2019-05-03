@@ -1,5 +1,6 @@
 #pragma once
-#include<iostream>
+#include <iostream>
+#include <vector>
 using namespace std;
 class chessBasic
 {
@@ -10,7 +11,7 @@ public:
 	int gety();
 	void setCamp(bool);
 	bool getCamp();
-	virtual bool isMovable() = 0;
+	virtual bool isMovable(int, int, vector<vector<int>>) = 0;
 private:
 	int x, y;
 	bool camp;

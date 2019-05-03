@@ -3,7 +3,14 @@
 #include <conio.h>
 #include "ChineseChess.h"
 #include "ChessBoard.h"
-#include "chessBasic.h"
+#include "ChessBasic.h"
+#include "King.h"
+#include "Elephant.h"
+#include "Counselor.h"
+#include "Car.h"
+#include "Bubble.h"
+#include "slave.h"
+#include "Horse.h"
 using namespace std;
 
 //intent:進行遊戲
@@ -15,10 +22,8 @@ void ChineseChess::playGame()
 	ChessBoard board(initialPlayBoard,initialTurn);
 	//是否已選棋
 	bool haveChose = 0;
-	//目前下棋方
-	bool nowTurn = board.getTurn();
 	//選擇棋種
-	chessBasic *chess;
+	chessBasic *chess = NULL;
 	while (true)
 	{
 		//偵測鍵盤是否有輸入
@@ -37,17 +42,53 @@ void ChineseChess::playGame()
 				//若未選擇棋子，進行選棋
 				if (!haveChose)
 				{
-					//選擇棋子
-					bool chooseFlag = 0;
-					chooseFlag = board.chooseChess(&chess);
-					if(chooseFlag)
+					King kingChess;
+					Counselor counselorChess;
+					Elephant elephantChess;
+					Car carChess;
+					Horse horseChess;
+					bubble bubbleChess;
+					slave slaveChess;
+					if (((board.getTurn() && board.getChess() > 7) || (!board.getTurn() && board.getChess() < 8)) && board.getChess() != 0)
+					{
 						haveChose = 1;
+						int chessType = board.getChess() - board.getTurn() * 7;
+						switch (chessType)
+						{
+						case 1:
+							chess = &kingChess;
+							break;
+						case 2:
+							chess = &counselorChess;
+							break;
+						case 3:
+							chess = &elephantChess;
+							break;
+						case 4:
+							chess = &carChess;
+							break;
+						case 5:
+							chess = &horseChess;
+							break;
+						case 6:
+							chess = &bubbleChess;
+							break;
+						case 7:
+							chess = &slaveChess;
+							break;
+						default:
+							break;
+						}
+						chess->setx(board.getCurX());
+						chess->sety(board.getCurY());
+						chess->setCamp(board.getTurn());
+					}
 				}
 				//已選擇棋子，進行移動
 				else
 				{
 					//可移動到目標座標
-					if (chess->isMovable())
+					if (chess->isMovable(board.getCurX(), board.getCurY(), board.getBoard()))
 					{
 						int haveWin = 0;
 						//進行移動
@@ -84,49 +125,6 @@ void ChineseChess::playGame()
 			}
 		}
 	}
-}
-
-//intent:依照使用者選擇模式進行動作
-//pre:使用者已選擇模式
-//post:依照選擇模式進行動作
-void ChineseChess::action()
-{
-	if (gameMode == 1)
-	{
-		setPlayBoard("oldBoard.txt");
-		playGame();
-	}
-	else if (gameMode == 2)
-		getManual();
-	else if (gameMode == 3)
-		exitGame();
-	else
-	{
-		setPlayBoard("initial.txt");
-		playGame();
-	}
-}
-
-//intent:顯示說明
-//pre:物件已建立
-//post:顯示ChineseChess玩法說明
-void ChineseChess::getManual()
-{
-	ifstream manualFile("manual.txt");
-	if (manualFile.is_open())
-		cout << manualFile.rdbuf();
-	else
-		cout << "open manual fail" << endl;
-	manualFile.close();
-}
-
-//intent:離開遊戲
-//pre:物件已建立
-//post:輸出訊息並離開遊戲
-void ChineseChess::exitGame()
-{
-	cout << "Good bye!" << endl;
-	exit(1);
 }
 
 //intent:設定執行的動作
@@ -171,104 +169,153 @@ void ChineseChess::setMode()
 	}
 }
 
+//intent:依照使用者選擇模式進行動作
+//pre:使用者已選擇模式
+//post:依照選擇模式進行動作
+void ChineseChess::action()
+{
+	if (gameMode == 1)
+	{
+		setPlayBoard("oldBoard.txt");
+		playGame();
+	}
+	else if (gameMode == 2)
+		getManual();
+	else if (gameMode == 3)
+		exitGame();
+	else
+	{
+		setPlayBoard("initial.txt");
+		playGame();
+	}
+}
+
 //取得初始棋局和下棋方
 void ChineseChess::setPlayBoard(string file)
 {
 	ifstream inputFile(file);
-	initialPlayBoard.resize(10);
-	for (int i = 0; i < 10; i++)
+	if (inputFile.is_open())
 	{
-		initialPlayBoard[i].resize(9);
-	}
-	//正常開局
-	if (file == "initial.txt")
-	{
+		initialPlayBoard.resize(10);
 		for (int i = 0; i < 10; i++)
 		{
-			for (int j = 0; j < 9; j++)
-			{
-				inputFile >> initialPlayBoard[i][j];
-			}
+			initialPlayBoard[i].resize(9);
 		}
-		inputFile >> initialTurn;
-	}
-	//殘局
-	else
-	{
-		//讀取所有殘局
-		vector<vector<vector<int>>> allBoard;
-		vector<vector<int>> tmpBoard;
-		vector<bool> allTurn;
-		bool tmpTurn;
-		tmpBoard.resize(10);
-		for (int i = 0; i < 10; i++)
-		{
-			tmpBoard[i].resize(9);
-		}
-		while (true)
+		//正常開局
+		if (file == "initial.txt")
 		{
 			for (int i = 0; i < 10; i++)
 			{
 				for (int j = 0; j < 9; j++)
 				{
-					inputFile >> tmpBoard[i][j];
+					inputFile >> initialPlayBoard[i][j];
 				}
 			}
-			inputFile >> tmpTurn;
-			if (inputFile.eof())
-				break;
-			allBoard.push_back(tmpBoard);
-			allTurn.push_back(tmpTurn);
+			inputFile >> initialTurn;
 		}
-		//選擇殘局
-		bool chooseFile = 0;
-		int index = 0;
-		while (true)
+		//殘局
+		else
 		{
-			if (kbhit())
+			//讀取所有殘局
+			vector<vector<vector<int>>> allBoard;
+			vector<vector<int>> tmpBoard;
+			vector<bool> allTurn;
+			bool tmpTurn;
+			tmpBoard.resize(10);
+			for (int i = 0; i < 10; i++)
 			{
-				int input = getch();
-				if (input == 224)
+				tmpBoard[i].resize(9);
+			}
+			while (true)
+			{
+				for (int i = 0; i < 10; i++)
 				{
-					input = getch();
-					if (input == 72)
+					for (int j = 0; j < 9; j++)
 					{
-						if (index == 0)
-							index = allBoard.size() - 1;
-						else
-							index--;
-					}
-					else if (input == 80)
-					{
-						if (index == allBoard.size() - 1)
-							index = 0;
-						else
-							index++;
+						inputFile >> tmpBoard[i][j];
 					}
 				}
-				else if (input == 13)
+				inputFile >> tmpTurn;
+				if (inputFile.eof())
+					break;
+				allBoard.push_back(tmpBoard);
+				allTurn.push_back(tmpTurn);
+			}
+			//選擇殘局
+			bool chooseFile = 0;
+			int index = 0;
+			while (true)
+			{
+				if (kbhit())
 				{
-					if (chooseFile)
+					int input = getch();
+					if (input == 224)
 					{
-						initialPlayBoard = allBoard[index];
-						initialTurn = allTurn[index];
-						break;
-					}
-					else
-					{
-						//輸出殘局預覽畫面
 						input = getch();
-						if (input == 13)
-							chooseFile = 1;
+						if (input == 72)
+						{
+							if (index == 0)
+								index = allBoard.size() - 1;
+							else
+								index--;
+						}
+						else if (input == 80)
+						{
+							if (index == allBoard.size() - 1)
+								index = 0;
+							else
+								index++;
+						}
 					}
-				}
-				else if (input == 27)
-				{
-					if (chooseFile)
-						chooseFile = 0;
+					else if (input == 13)
+					{
+						if (chooseFile)
+						{
+							initialPlayBoard = allBoard[index];
+							initialTurn = allTurn[index];
+							break;
+						}
+						else
+						{
+							//輸出殘局預覽畫面
+							input = getch();
+							if (input == 13)
+								chooseFile = 1;
+						}
+					}
+					else if (input == 27)
+					{
+						if (chooseFile)
+							chooseFile = 0;
+					}
 				}
 			}
 		}
 	}
+	else
+		cout << "載入棋局失敗" << endl;
 	inputFile.close();
 }
+
+//intent:顯示說明
+//pre:物件已建立
+//post:顯示ChineseChess玩法說明
+void ChineseChess::getManual()
+{
+	ifstream manualFile("manual.txt");
+	if (manualFile.is_open())
+		cout << manualFile.rdbuf();
+	else
+		cout << "open manual fail" << endl;
+	manualFile.close();
+}
+
+//intent:離開遊戲
+//pre:物件已建立
+//post:輸出訊息並離開遊戲
+void ChineseChess::exitGame()
+{
+	cout << "Good bye!" << endl;
+	exit(1);
+}
+

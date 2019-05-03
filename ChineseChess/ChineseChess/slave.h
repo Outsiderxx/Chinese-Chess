@@ -1,8 +1,7 @@
-#include "chessBasic.h"
-
+#include"chessBasic.h"
 class slave :public chessBasic
 {
 public:
-	slave(int, int, int);
-	bool isMovable(int, int);
+	slave(void) {}
+	virtual bool isMovable(int, int, vector<vector<int> >);
 };
