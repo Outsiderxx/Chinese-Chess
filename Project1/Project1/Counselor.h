@@ -2,7 +2,7 @@
 class Counselor : public chessBasic
 {
 public:
-	Counselor(int, int, int);
+	Counselor(void) {}
 	bool isMovable(int, int, vector<vector<int> >);
 };
 

@@ -1,20 +1,5 @@
 #include"Elephant.h"
 
-Elephant::Elephant(int nowx, int nowy, int type)
-{
-	setx(nowx);
-	sety(nowy);
-	if (type == 3)
-	{
-		setCamp(false);		//black
-	}
-	else if (type == 10)
-	{
-		setCamp(true);		//red
-	}
-	moveCount = 0;			//count vertical movement
-}
-
 bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 {
 	int nowx = getx();
