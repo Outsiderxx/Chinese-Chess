@@ -1,6 +1,7 @@
 #pragma once
 #include"chessBasic.h"
-class slave:public chessBasic
+
+class slave : public chessBasic
 {
 public:
 	slave();

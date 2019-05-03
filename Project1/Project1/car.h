@@ -1,11 +1,11 @@
 #pragma once
 #include"chessBasic.h"
-class car:chessBasic
+class car : public chessBasic
 {
 public:
 	car();
 	car(int, int, int);
 	~car();
-	bool isMovable(int, int,const int *board[]);
+	bool isMovable(int, int, vector< vector<int> >);
 };
 

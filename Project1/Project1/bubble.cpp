@@ -15,7 +15,7 @@ bubble::bubble(int nowx, int nowy, int type)
 	}
 }
 bubble::~bubble(){}
-bool bubble::isMovable(int dest_x, int dest_y, const int *board[])
+bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 {
 	int nowx = getx();
 	int nowy = gety();
