@@ -14,7 +14,7 @@ car::car(int nowx, int nowy, int type)
 	}
 }
 car::~car() {}
-bool car::isMovable(int dest_x, int dest_y, vector< vector<int> > board)
+bool car::isMovable(int dest_x, int dest_y, vector< vector<int>> board)
 {
 	int nowx = getx();
 	int nowy = gety();

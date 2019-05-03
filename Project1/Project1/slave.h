@@ -7,6 +7,6 @@ public:
 	slave();
 	slave(int, int, int);
 	~slave();
-	bool isMovable(int, int, vector<vector<int> >);
+	bool isMovable(int, int, vector<vector<int>>);
 };
 
