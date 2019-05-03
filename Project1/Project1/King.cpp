@@ -6,29 +6,29 @@ King::King(int nowx, int nowy, int type)
 	sety(nowy);
 	if (type == 1)
 	{
-		setCamp(false);		//黑
+		setCamp(false);		//black
 	}
 	else if (type == 8)
 	{
-		setCamp(true);		//紅
+		setCamp(true);		//red
 	}
 }
 
-bool King::isMovable(int dest_x, int dest_y, const int *board[])
+bool King::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 {
 	int nowx = getx();
 	int nowy = gety();
 	if (dest_x == nowx && dest_y == nowy)
 	{
-		//重新輸入目的地
+		//move again
 		return 0;
 	}
-	if (dest_x > nowx + 1 || dest_x < nowx - 1 || dest_y > nowy + 1 || dest_y < nowy - 1)		//不符合將的走法
+	if ((dest_x != nowx && dest_y != nowy) || (dest_x == nowx && (dest_y > nowy + 1 || dest_y < nowy - 1)) || (dest_y == nowy && (dest_x > nowx + 1 || dest_x < nowx - 1)))			//illegal moving
 	{
-		//重新輸入目的地
+		//move again
 		return 0;
 	}
-	if (board[dest_x][dest_y] != 0)				//判斷目標位置是不是友軍
+	if (board[dest_x][dest_y] != 0)				//same camp
 	{
 		if (board[dest_x][dest_y] <= 7 && !getCamp())
 		{
@@ -39,9 +39,9 @@ bool King::isMovable(int dest_x, int dest_y, const int *board[])
 			return 0;
 		}
 	}
-	if (dest_x == nowx && dest_y == nowy + 1)		//向下移動
+	if (dest_x == nowx && dest_y == nowy + 1)		//move down side
 	{
-		if (!getCamp())		//black
+		if (!getCamp())		//black					//confined to the nine point fortress
 		{
 			if (dest_y > 2)
 			{
@@ -57,9 +57,9 @@ bool King::isMovable(int dest_x, int dest_y, const int *board[])
 		}
 		return 1;
 	}
-	if (dest_x == nowx && dest_y == nowy - 1)		//向上移動
+	if (dest_x == nowx && dest_y == nowy - 1)		//move up side
 	{
-		if (!getCamp())		//black
+		if (!getCamp())		//black					//confined to the nine point fortress
 		{
 			if (dest_y > 2)
 			{
@@ -75,113 +75,25 @@ bool King::isMovable(int dest_x, int dest_y, const int *board[])
 		}
 		return 1;
 	}
-	if (dest_x == nowx + 1 && dest_y == nowy)		//向右移動
+	if (dest_x == nowx + 1 && dest_y == nowy)		//move right side
 	{
-		if (dest_x > 5 || dest_x < 3)				//不出九宮格
+		if (dest_x > 5 || dest_x < 3)				//confined to the nine point fortress
 		{
 			return 0;
 		}
 		return 1;
 	}
-	if (dest_x == nowx - 1 && dest_y == nowy)		//向左移動
+	if (dest_x == nowx - 1 && dest_y == nowy)		//move left side
 	{
-		if (dest_x > 5 || dest_x < 3)				//不出九宮格
+		if (dest_x > 5 || dest_x < 3)				//confined to the nine point fortress
 		{
 			return 0;
-		}
-		return 1;
-	}
-	if (dest_x == nowx + 1 && dest_y == nowy + 1)		//右下移動
-	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
-		{
-			return 0;
-		}
-		if (!getCamp())		//black
-		{
-			if (dest_y > 2)
-			{
-				return 0;
-			}
-		}
-		else				//red
-		{
-			if (dest_y < 7)
-			{
-				return 0;
-			}
-		}
-		return 1;
-	}
-	if (dest_x == nowx - 1 && dest_y == nowy + 1)		//左下移動
-	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
-		{
-			return 0;
-		}
-		if (!getCamp())		//black
-		{
-			if (dest_y > 2)
-			{
-				return 0;
-			}
-		}
-		else				//red
-		{
-			if (dest_y < 7)
-			{
-				return 0;
-			}
-		}
-		return 1;
-	}
-	if (dest_x == nowx + 1 && dest_y == nowy - 1)		//右上移動
-	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
-		{
-			return 0;
-		}
-		if (!getCamp())		//black
-		{
-			if (dest_y > 2)
-			{
-				return 0;
-			}
-		}
-		else				//red
-		{
-			if (dest_y < 7)
-			{
-				return 0;
-			}
-		}
-		return 1;
-	}
-	if (dest_x == nowx - 1 && dest_y == nowy - 1)		//左下移動
-	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
-		{
-			return 0;
-		}
-		if (!getCamp())		//black
-		{
-			if (dest_y > 2)
-			{
-				return 0;
-			}
-		}
-		else				//red
-		{
-			if (dest_y < 7)
-			{
-				return 0;
-			}
 		}
 		return 1;
 	}
 }
 
-bool King::kingMeetKing(King& enemyKing,const int *board[])		//判斷王見王
+bool King::kingMeetKing(King& enemyKing,const int *board[])		//king meet king
 {
 	if (getx() == enemyKing.getx())
 	{

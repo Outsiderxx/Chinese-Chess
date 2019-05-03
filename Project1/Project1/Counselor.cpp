@@ -6,29 +6,29 @@ Counselor::Counselor(int nowx, int nowy, int type)
 	sety(nowy);
 	if (type == 2)
 	{
-		setCamp(false);		//黑
+		setCamp(false);		//black
 	}
 	else if (type == 9)
 	{
-		setCamp(true);		//紅
+		setCamp(true);		//red
 	}
 }
 
-bool Counselor::isMovable(int dest_x, int dest_y, const int *board[])
+bool Counselor::isMovable(int dest_x, int dest_y, vector<vector<int >> board)
 {
 	int nowx = getx();
 	int nowy = gety();
 	if (dest_x == nowx && dest_y == nowy)
 	{
-		//重新輸入目的地
+		//move again
 		return 0;
 	}
-	if ((dest_x != nowx + 1 && dest_x != nowx - 1) || (dest_y != nowy + 1 && dest_y != nowy - 1))	//不符合士的走法
+	if ((dest_x != nowx + 1 && dest_x != nowx - 1) || (dest_y != nowy + 1 && dest_y != nowy - 1))	//illegal moving
 	{
-		//重新輸入目的地
+		//move again
 		return 0;
 	}
-	if (board[dest_x][dest_y] != 0)				//判斷目標位置是不是友軍
+	if (board[dest_x][dest_y] != 0)				//same camp
 	{
 		if (board[dest_x][dest_y] <= 7 && !getCamp())
 		{
@@ -39,9 +39,9 @@ bool Counselor::isMovable(int dest_x, int dest_y, const int *board[])
 			return 0;
 		}
 	}
-	if (dest_x == nowx + 1 && dest_y == nowy + 1)		//右下移動
+	if (dest_x == nowx + 1 && dest_y == nowy + 1)		//move right down
 	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
+		if (dest_x > 5 || dest_x < 3)					//confined to the nine point fortress
 		{
 			return 0;
 		}
@@ -61,9 +61,9 @@ bool Counselor::isMovable(int dest_x, int dest_y, const int *board[])
 		}
 		return 1;
 	}
-	if (dest_x == nowx - 1 && dest_y == nowy + 1)		//左下移動
+	if (dest_x == nowx - 1 && dest_y == nowy + 1)		//move left down
 	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
+		if (dest_x > 5 || dest_x < 3)					//confined to the nine point fortress
 		{
 			return 0;
 		}
@@ -83,9 +83,9 @@ bool Counselor::isMovable(int dest_x, int dest_y, const int *board[])
 		}
 		return 1;
 	}
-	if (dest_x == nowx + 1 && dest_y == nowy - 1)		//右上移動
+	if (dest_x == nowx + 1 && dest_y == nowy - 1)		//move right up
 	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
+		if (dest_x > 5 || dest_x < 3)					//confined to the nine point fortress
 		{
 			return 0;
 		}
@@ -105,9 +105,9 @@ bool Counselor::isMovable(int dest_x, int dest_y, const int *board[])
 		}
 		return 1;
 	}
-	if (dest_x == nowx - 1 && dest_y == nowy - 1)		//左下移動
+	if (dest_x == nowx - 1 && dest_y == nowy - 1)		//move left down
 	{
-		if (dest_x > 5 || dest_x < 3)					//不出九宮格
+		if (dest_x > 5 || dest_x < 3)					//confined to the nine point fortress
 		{
 			return 0;
 		}
