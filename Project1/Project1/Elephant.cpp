@@ -27,13 +27,13 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	{
 		//move again
 	}
-	if (board[dest_x][dest_y] != 0)				//same camp
+	if (board[dest_y][dest_x] != 0)				//same camp
 	{
-		if (board[dest_x][dest_y] <= 7 && !getCamp())
+		if (board[dest_y][dest_x] <= 7 && !getCamp())
 		{
 			return 0;
 		}
-		if (board[dest_x][dest_y] > 7 && getCamp())
+		if (board[dest_y][dest_x] > 7 && getCamp())
 		{
 			return 0;
 		}
@@ -44,7 +44,7 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		{
 			return 0;
 		}
-		if (board[nowx + 1][nowy + 1] != 0)			//be blocked by other chess(elephant eye)
+		if (board[nowy + 1][nowx + 1] != 0)			//be blocked by other chess(elephant eye)
 		{
 			return 0;
 		}
@@ -67,7 +67,7 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		{
 			return 0;
 		}
-		if (board[nowx - 1][nowy + 1] != 0)			//be blocked by other chess(elephant eye)
+		if (board[nowy - 1][nowx + 1] != 0)			//be blocked by other chess(elephant eye)
 		{
 			return 0;
 		}
@@ -90,7 +90,7 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		{
 			return 0;
 		}
-		if (board[nowx + 1][nowy - 1] != 0)			//be blocked by other chess(elephant eye)
+		if (board[nowy + 1][nowx - 1] != 0)			//be blocked by other chess(elephant eye)
 		{
 			return 0;
 		}
@@ -113,7 +113,7 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		{
 			return 0;
 		}
-		if (board[nowx - 1][nowy - 1] != 0)			//be blocked by other chess(elephant eye)
+		if (board[nowy - 1][nowx - 1] != 0)			//be blocked by other chess(elephant eye)
 		{
 			return 0;
 		}
