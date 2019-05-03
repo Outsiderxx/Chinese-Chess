@@ -26,11 +26,11 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	}
 	if (!getCamp())
 	{
-		if (board[dest_x][dest_y] >= 1 && board[dest_x][dest_y] <= 7) { return 0; } //same camp in black
+		if (board[dest_y][dest_x] >= 1 && board[dest_y][dest_x] <= 7) { return 0; } //same camp in black
 	}
 	else
 	{
-		if (board[dest_x][dest_y] >= 8 && board[dest_x][dest_y] <= 14) { return 0; } //same camp in red
+		if (board[dest_y][dest_x] >= 8 && board[dest_y][dest_x] <= 14) { return 0; } //same camp in red
 	}
 	if (((dest_x == nowx) && (dest_y != nowy)) || ((dest_x != nowx) && (dest_y == nowy))) //destnation should be bubble's row or column, or move again.
 	{
@@ -41,7 +41,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 			{
 				for (int i = nowy - 1; i > dest_y; --i)
 				{
-					if (board[dest_x][i] != 0)
+					if (board[i][dest_x] != 0)
 					{
 						obstacleCount++;
 					}
@@ -55,7 +55,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 				{
 					if (obstacleCount == 1)
 					{
-						if (board[dest_x][dest_y] == 0) return 0; //no target to eat.
+						if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
 						else
 						{
 							return 1;
@@ -68,7 +68,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 			{
 				for (int i = nowy + 1; i < dest_y; ++i)
 				{
-					if (board[dest_x][i] != 0)
+					if (board[i][dest_x] != 0)
 					{
 						obstacleCount++;
 					}
@@ -81,7 +81,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 				{
 					if (obstacleCount == 1)
 					{
-						if (board[dest_x][dest_y] == 0) return 0; //no target to eat.
+						if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
 						else
 						{
 							return 1;
@@ -98,7 +98,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 			{
 				for (int i = nowx - 1; i > dest_x; --i)
 				{
-					if (board[i][dest_y] != 0)
+					if (board[dest_y][i] != 0)
 					{
 						obstacleCount++;
 					}
@@ -110,7 +110,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 					{
 						if (obstacleCount == 1)
 						{
-							if (board[dest_x][dest_y] == 0) return 0; //no target to eat.
+							if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
 							else
 							{
 								return 1;
@@ -124,7 +124,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 			{
 				for (int i = nowx + 1; i < dest_x; ++i)
 				{
-					if (board[i][dest_y] != 0)
+					if (board[dest_y][i] != 0)
 					{
 						obstacleCount++;
 					}
@@ -136,7 +136,7 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 					{
 						if (obstacleCount == 1)
 						{
-							if (board[dest_x][dest_y] == 0) return 0; //no target to eat.
+							if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
 							else
 							{
 								return 1;
