@@ -2,6 +2,6 @@
 class Horse : public chessBasic
 {
 public:
-	Horse(int, int, int);
+	Horse(void) {}
 	bool isMovable(int, int, vector<vector<int> >);
 };

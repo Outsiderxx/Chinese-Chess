@@ -2,7 +2,7 @@
 class King : public chessBasic
 {
 public:
-	King(int, int, int);
+	King(void) {}
 	bool isMovable(int, int, vector<vector<int> >);
-	bool kingMeetKing(King&, const int *board[]);
+	bool kingMeetKing(King&, vector<vector<int> >);
 };
