@@ -7,10 +7,12 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	if (dest_x == nowx && dest_y == nowy)
 	{
 		//move again
+		return 0;
 	}
 	if ((dest_x != nowx + 2 && dest_x != nowx - 2) || (dest_y != nowy + 2 && dest_y != nowy - 2))	//illegal moving
 	{
 		//move again
+		return 0;
 	}
 	if (board[dest_y][dest_x] != 0)				//same camp
 	{
@@ -87,4 +89,5 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		}
 		return 1;
 	}
+	return 0;
 }
