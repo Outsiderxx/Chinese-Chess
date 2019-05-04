@@ -6,6 +6,6 @@ public:
 	car();
 	car(int, int, int);
 	~car();
-	bool isMovable(int, int, vector< vector<int> >);
+	bool isMovable(int, int, vector< vector<int>>);
 };
 

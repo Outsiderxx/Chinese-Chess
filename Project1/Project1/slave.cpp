@@ -14,7 +14,7 @@ slave::slave(int nowx, int nowy, int type)
 	}
 }
 slave::~slave(){}
-bool slave::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
+bool slave::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 {
 	bool passRiverOrNot = false;
 	int nowx = getx();
@@ -27,7 +27,7 @@ bool slave::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	}
 	if (!getCamp())  // black
 	{
-		if (board[dest_x][dest_y] >= 1 && board[dest_x][dest_y] <= 7) { return 0; } // the same camp
+		if (board[dest_y][dest_x] >= 1 && board[dest_y][dest_x] <= 7) { return 0; } // the same camp
 		if (nowy >= 5) passRiverOrNot = true;
 		if (dest_y < nowy) //slave cannot go back.
 		{
@@ -47,7 +47,7 @@ bool slave::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	else		// red
 	{
 		if (nowy <= 4) passRiverOrNot = true;
-		if (board[dest_x][dest_y] >= 8 && board[dest_x][dest_y] <= 14) { return 0; } // the same camp
+		if (board[dest_y][dest_x] >= 8 && board[dest_y][dest_x] <= 14) { return 0; } // the same camp
 		if (dest_y > nowy) //slave cannot go back.
 		{
 			//move again.
