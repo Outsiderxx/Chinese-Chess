@@ -149,7 +149,9 @@
     <ClCompile Include="Horse.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu_operate.cpp" />
     <ClCompile Include="slave.cpp" />
+    <ClCompile Include="strart_menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bubble.h" />
@@ -161,7 +163,9 @@
     <ClInclude Include="Elephant.h" />
     <ClInclude Include="Horse.h" />
     <ClInclude Include="King.h" />
+    <ClInclude Include="menu_operate.h" />
     <ClInclude Include="slave.h" />
+    <ClInclude Include="start_menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

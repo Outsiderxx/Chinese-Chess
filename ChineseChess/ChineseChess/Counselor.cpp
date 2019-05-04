@@ -1,4 +1,4 @@
-#include "Counselor.h"
+#include"Counselor.h"
 
 bool Counselor::isMovable(int dest_x, int dest_y, vector<vector<int >> board)
 {
@@ -14,13 +14,13 @@ bool Counselor::isMovable(int dest_x, int dest_y, vector<vector<int >> board)
 		//move again
 		return 0;
 	}
-	if (board[dest_x][dest_y] != 0)				//same camp
+	if (board[dest_y][dest_x] != 0)				//same camp
 	{
-		if (board[dest_x][dest_y] <= 7 && !getCamp())
+		if (board[dest_y][dest_x] <= 7 && !getCamp())
 		{
 			return 0;
 		}
-		if (board[dest_x][dest_y] > 7 && getCamp())
+		if (board[dest_y][dest_x] > 7 && getCamp())
 		{
 			return 0;
 		}

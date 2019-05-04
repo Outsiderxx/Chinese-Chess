@@ -14,13 +14,13 @@ bool King::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		//move again
 		return 0;
 	}
-	if (board[dest_x][dest_y] != 0)				//same camp
+	if (board[dest_y][dest_x] != 0)				//same camp
 	{
-		if (board[dest_x][dest_y] <= 7 && !getCamp())
+		if (board[dest_y][dest_x] <= 7 && !getCamp())
 		{
 			return 0;
 		}
-		if (board[dest_x][dest_y] > 7 && getCamp())
+		if (board[dest_y][dest_x] > 7 && getCamp())
 		{
 			return 0;
 		}
@@ -79,13 +79,13 @@ bool King::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	}
 }
 
-bool King::kingMeetKing(King& enemyKing, const int *board[])		//king meet king
+bool King::kingMeetKing(King& enemyKing, vector<vector<int>> board)	//king meet king
 {
 	if (getx() == enemyKing.getx())
 	{
 		for (int loop = gety() > enemyKing.gety() ? enemyKing.gety() + 1 : gety() + 1; loop < gety() > enemyKing.gety() ? gety() : enemyKing.gety(); loop++)
 		{
-			if (board[getx()][loop] != 0)
+			if (board[loop][getx()] != 0)
 			{
 				return 0;
 			}

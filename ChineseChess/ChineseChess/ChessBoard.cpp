@@ -84,6 +84,7 @@ void ChessBoard::changeCoordinate(void)
 }
 
 //顯示菜單
+//toDo=0 存檔 toDo=1 投降 toDo=2 說明 toDo=3 離開遊戲 toDo=4 悔棋
 int ChessBoard::menu(void)
 {    
 	int toDo = 0;
@@ -115,9 +116,13 @@ int ChessBoard::menu(void)
 				if (toDo == 0)
 					saveFile();
 				else if (toDo == 1)
+					return 0;
+				else if (toDo == 2)
+					return 1;
+				else if (toDo == 3)
 					return 2;
 				else
-					return 1;
+					return 3;
 			}
 			if (input == 27)
 				return 0;
@@ -131,11 +136,11 @@ int ChessBoard::move(chessBasic* curChess)
 	int returnValue;
 	if (getChess() == 1)
 		returnValue = 1;
-	if (getChess() == 8)
+	else if(getChess() == 8)
 		returnValue = 2;
 	else
 		returnValue = 0;
-	curBoard[curX][curY] = curBoard[curChess->gety()][curChess->getx()];
+	curBoard[curY][curX] = curBoard[curChess->gety()][curChess->getx()];
 	curBoard[curChess->gety()][curChess->getx()] = 0;
 	curChess->setx(curX);
 	curChess->sety(curY);
@@ -152,6 +157,8 @@ void ChessBoard::saveBoard(void)
 void ChessBoard::regret(void)
 {
 	curBoard = preBoard[preBoard.size() - 2];
+	preBoard.pop_back();
+	preBoard.pop_back();
 }
 
 //存檔
@@ -172,4 +179,119 @@ void ChessBoard::saveFile(void)
 vector<vector<int>> ChessBoard::getBoard(void)
 {
 	return curBoard;
+}
+
+void ChessBoard::printBoard(void)
+{
+	system("cls");
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			switch (curBoard[i][j])
+			{
+			case 1:
+				cout << "將 ";
+				break;
+			case 2:
+				cout << "士 ";
+				break;
+			case 3:
+				cout << "象 ";
+				break;
+			case 4:
+				cout << "車 ";
+				break;
+			case 5:
+				cout << "馬 ";
+				break;
+			case 6:
+				cout << "包 ";
+				break;
+			case 7:
+				cout << "卒 ";
+				break;
+			case 8:
+				cout << "帥 ";
+				break;
+			case 9:
+				cout << "仕 ";
+				break;
+			case 10:
+				cout << "相 ";
+				break;
+			case 11:
+				cout << "車 ";
+				break;
+			case 12:
+				cout << "馬 ";
+				break;
+			case 13:
+				cout << "炮 ";
+				break;
+			case 14:
+				cout << "兵 ";
+				break;
+			default:
+				cout << "空 ";
+				break;
+			}
+		}
+		cout << endl << endl;
+	}
+	if (turn)
+		cout << "紅方下棋" << endl;
+	else
+		cout << "黑方下棋" << endl;
+}
+
+void ChessBoard::replay(void)
+{
+	int index = 0;
+	while (true)
+	{
+		if (kbhit())
+		{
+			int input = getch();
+			if (input == 13)
+			{
+				curBoard = preBoard[index];
+				printBoard();
+				index++;
+				if (index == preBoard.size())
+				{
+					system("pause");
+					break;
+				}
+			}
+		}
+	}
+}
+
+void ChessBoard::win(bool whoWin)
+{
+	system("cls");
+	if (whoWin)
+		cout << "紅方勝" << endl;
+	else
+		cout << "黑方勝" << endl;
+	bool replayFlag = 1;
+	while (true)
+	{
+		if (kbhit())
+		{
+			int input = getch();
+			if (input == 224)
+			{
+				input = getch();
+				replayFlag = 1 - replayFlag;
+			}
+			else if (input == 13)
+			{
+				if (replayFlag)
+					replay();
+				break;
+			}
+		}
+	}
 }

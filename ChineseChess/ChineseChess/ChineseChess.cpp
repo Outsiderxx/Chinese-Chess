@@ -11,6 +11,8 @@
 #include "Bubble.h"
 #include "slave.h"
 #include "Horse.h"
+#include "start_menu.h"
+#include "menu_operate.h"
 using namespace std;
 
 //intent:進行遊戲
@@ -20,6 +22,8 @@ void ChineseChess::playGame()
 {
 	//初始化棋局
 	ChessBoard board(initialPlayBoard,initialTurn);
+	board.saveBoard();
+	board.printBoard();
 	//是否已選棋
 	bool haveChose = 0;
 	//選擇棋種
@@ -93,23 +97,25 @@ void ChineseChess::playGame()
 						int haveWin = 0;
 						//進行移動
 						haveWin = board.move(chess);
-						//判斷勝負狀態
-						if (haveWin == 1)
-						{
-							cout << "黑方勝" << endl;
-							break;
-						}
-						else if (haveWin == 2)
-						{
-							cout << "紅方勝" << endl;
-							break;
-						}
 						//改變選棋狀態
 						haveChose = 0;
 						//儲存棋局
 						board.saveBoard();
 						//換另一方動作
 						board.changeTurn();
+						system("cls");
+						board.printBoard();
+						//判斷勝負狀態
+						if (haveWin == 1)
+						{
+							board.win(0);
+							break;
+						}
+						else if (haveWin == 2)
+						{
+							board.win(1);
+							break;
+						}
 					}
 				}
 			}
@@ -118,11 +124,28 @@ void ChineseChess::playGame()
 			{
 				int leaveFlag;
 				leaveFlag = board.menu();
-				if (leaveFlag == 1)
-					exitGame();
-				else if (leaveFlag == 2)
+				if (leaveFlag == 0)
+				{
+					if (board.getTurn())
+					{
+						board.win(0);
+						break;
+					}
+					else
+					{
+						board.win(1);
+						break;
+					}
+				}
+				else if (leaveFlag == 1)
 					getManual();
+				else if (leaveFlag == 2)
+					exitGame();
+				else if (leaveFlag == 3)
+					board.regret();
 			}
+			else if(input=='q')
+				haveChose = 0;
 		}
 	}
 }
@@ -146,23 +169,31 @@ void ChineseChess::setMode()
 				if (input == 72)
 				{
 					if (gameMode == 0)
-						gameMode = 3;
+						gameMode = 0;
 					else
+					{
 						gameMode--;
+						up_gotoxy(gameMode);
+					}
 				}
 				//輸入鍵為DOWN
 				else if (input == 80)
 				{
 					if (gameMode == 3)
-						gameMode = 0;
+						gameMode = 3;
 					else
+					{
 						gameMode++;
+						down_gotoxy(gameMode);
+					}
 				}
 			}
 			//輸入鍵為ENTER
 			else if (input == 13)
 			{
 				//確認模式，跳出選擇
+				system("color 0f");
+				system("cls");
 				break;
 			}
 		}
@@ -180,7 +211,7 @@ void ChineseChess::action()
 		playGame();
 	}
 	else if (gameMode == 2)
-		getManual();
+		caption();
 	else if (gameMode == 3)
 		exitGame();
 	else
@@ -188,6 +219,7 @@ void ChineseChess::action()
 		setPlayBoard("initial.txt");
 		playGame();
 	}
+	gameMode = 0;
 }
 
 //取得初始棋局和下棋方

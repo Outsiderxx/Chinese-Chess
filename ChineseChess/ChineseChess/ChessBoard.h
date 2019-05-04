@@ -34,6 +34,12 @@ public:
 	void regret(void);
 	//取得棋盤
 	vector<vector<int>> getBoard(void);
+	//畫出棋盤
+	void printBoard(void);
+	//重播
+	void replay(void);
+	//勝利
+	void win(bool);
 private:
 	vector<vector<int>> curBoard;
 	vector<vector<vector<int>>> preBoard;

@@ -48,6 +48,12 @@
     <ClCompile Include="Bubble.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="strart_menu.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="menu_operate.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChessBasic.h">
@@ -78,6 +84,12 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Bubble.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="start_menu.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="menu_operate.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
