@@ -136,7 +136,7 @@ void ChineseChess::playGame()
 			{
 				int leaveFlag;
 				leaveFlag = board.menu();
-				if (leaveFlag == 1)
+				if (leaveFlag == 1)				//投降
 				{
 					if (board.getTurn())
 					{
@@ -149,9 +149,11 @@ void ChineseChess::playGame()
 						break;
 					}
 				}
-				else if (leaveFlag == 2)
-					caption();
-				else if (leaveFlag == 3)
+				else if (leaveFlag == 2)		//說明書---------------------------------------讀完沒回原棋盤???
+				{
+					system("cls");	caption();
+				}
+				else if (leaveFlag == 3)		//離開
 					exitGame();
 			}
 			else if(input=='q')

@@ -79,11 +79,11 @@ void ChessBoard::changeCoordinate(void)
 }
 
 //顯示菜單
-//toDo=0 繼續 toDo=1 存檔 toDo=2 投降 toDo=3 說明 toDo=4 悔棋 toDo=5 離開遊戲 
-int ChessBoard::menu(void)
+//toDo=0 繼續 toDo=1 存檔 toDo=2 投降 toDo=3 說明 toDo=4 悔棋 toDo=5 離開遊戲 ---------------------------------------未完成
+int ChessBoard::menu(void)		
 {    
 	int toDo = 0;
-	//ESC清單畫面
+	escmenu();					//ESC清單畫面
 	while (true)
 	{
 		if (_kbhit())
@@ -92,40 +92,35 @@ int ChessBoard::menu(void)
 			if (input == 224)
 			{
 				input = _getch();
-				if (input == 72)
+				if (input == 75)			//左
 				{
-					if (input == 0)
+					if (toDo == 0)
 						toDo = 0;
 					else
-						toDo--;
+					{
+						toDo--;		esc_left_gotoxy(toDo);
+					}
 				}
-				else if (input == 80)
+				else if (input == 77)		//右
 				{
 					if (toDo == 5)
 						toDo = 5;
 					else
-						toDo++;
+					{
+						toDo++;		esc_right_gotoxy(toDo);
+					}
 				}
 			}
-			else if(input == 13)
+			else if(input == 13)		//enter確定選取
 			{
-				switch (toDo)
+				switch (toDo)			//做完動作清除選單畫面游標移到上一步位置
 				{
-				case 0:
-					return 0;
-				case 1:
-					saveFile();
-					break;
-				case 2:
-					return 1;
-				case 3:
-					return 2;
-				case 4:
-					regret();
-					return 0;
-				case 5:
-					saveFile();
-					return 3;
+				case 0: {	escclear();	gotoxy(34 + curX * 4, 2 + curY * 2); return 0; }
+				case 1: {	saveFile();	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2);  return 0; }
+				case 2: {	escclear();	gotoxy(34 + curX * 4, 2 + curY * 2); return 1; }
+				case 3: {	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2); return 2; }
+				case 4: {	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2); regret(); return 0; }			//沒悔到棋---------------------應該是沒print的問題
+				case 5: {	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2); return 3; }
 				}
 			}
 		}
@@ -190,7 +185,7 @@ vector<vector<int>> ChessBoard::getBoard(void)
 	return curBoard;
 }
 
-void ChessBoard::printBoard(void)
+void ChessBoard::printBoard(void)				//--------------------------------------------------------------------------棋盤刷新(僅棋盤)--------------------ok
 {
 	int x=30, y=0;
 	board_basic(34,2);
@@ -212,7 +207,7 @@ void ChessBoard::printBoard(void)
 			case 8:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "帥";	break; }
 			case 9:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "仕";	break; }
 			case 10:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "相";	break; }
-			case 11:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "��";	break; }
+			case 11:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "車";	break; }
 			case 12:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "傌";	break; }
 			case 13:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "炮";	break; }
 			case 14:		{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);cout << "兵";	break; }
@@ -231,11 +226,12 @@ void ChessBoard::printBoard(void)
 	gotoxy(34 + curX * 4, 2 + curY * 2);
 }
 
-void ChessBoard::replay(void)
+void ChessBoard::replay(void)							//-----------------------------------------------------------------------------------------------ok
 {
 	curBoard = preBoard[0];
 	printBoard();
-	gotoxy(82, 4);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);	 cout << "                           ";
+	gotoxy(82, 4);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);	 cout << "                         ";	
+	gotoxy(88, 11);		cout << "                  ";		gotoxy(94, 13);		cout << "            ";		gotoxy(90, 13); 	cout << "       ";
 	gotoxy(85, 8);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);	 cout << "~~~~~~重播中~~~~~~";
 	gotoxy(85, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);	 cout << "~~~按enter播下一手~~~";
 	int index = 1;
@@ -265,17 +261,23 @@ void ChessBoard::replay(void)
 	}
 }
 
-void ChessBoard::win(bool whoWin)
+void ChessBoard::win(bool whoWin)			//----------------------------------------------------------------------------------------------------ok
 {
 	if (!whoWin)
 	{
-		gotoxy(82, 4); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);	cout << "                             ";
-		gotoxy(87, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);	cout << "紅方勝 ! ! ! ! !";
+		gotoxy(82, 4); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);			cout << "                             ";
+		gotoxy(87, 8);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);		cout << "紅方勝 ! ! ! ! !";
+		gotoxy(88, 11); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);		cout << "是否重播 ? ? ?";
+		gotoxy(94, 13);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "否(回主畫面)";
+		gotoxy(90, 13); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "是";
 	}
 	else
 	{
 		gotoxy(82, 4); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);	cout << "                             ";
-		gotoxy(87, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);	cout << "黑方勝 ! ! ! ! !";
+		gotoxy(87, 8);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);	cout << "黑方勝 ! ! ! ! !";
+		gotoxy(88, 11); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);		cout << "是否重播 ? ? ?";
+		gotoxy(94, 13);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "否(回主畫面)";
+		gotoxy(90, 13); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "是";
 	}
 	bool replayFlag = 1;
 	while (true)
@@ -286,7 +288,14 @@ void ChessBoard::win(bool whoWin)
 			if (input == 224)
 			{
 				input = _getch();
-				replayFlag = 1 - replayFlag;
+				if (input == 75)
+				{
+					replay_left_gotoxy();	replayFlag = 1;
+				}
+				if (input == 77)
+				{
+					replay_right_gotoxy();	replayFlag=0;
+				}
 			}
 			else if (input == 13)
 			{

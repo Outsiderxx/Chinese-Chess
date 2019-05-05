@@ -2,66 +2,67 @@
 #define initialx 20
 #define initialy	 5
 
-const string fileword[10] = { " File 1 : "," File 2 : "," File 3 : "," File 4 : "," File 5 : "," File 6 : "," File 7 : "," File 8 : "," File 9 : "," File 10 : " };
+const string escwords[6] = { "0繼續遊戲","1儲存檔案","2舉起白旗","3偷看說明","4可憐悔棋","5離開遊戲" };
 
-void load()						//file list
-{
-	const int row = 28, column = 117;
-	/*外框*/
-	gotoxy(0, 0);		cout << "┌";
-	for (int i = 1; i < column; i++)		cout << "─";
-	cout << "┐";
-	for (int i = 1; i < row; i++)
-	{
-		gotoxy(0, i);		cout << "│";
-		gotoxy(column, i);		cout << "│";
-	}
-	gotoxy(0, row);		cout << "└";
-	for (int i = 1; i < column; i++)		cout << "─";
-	cout << "┘";
-	//--------------------------------------------------
-	gotoxy(35, 2);	cout << "---------------Select your record---------------";
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);	gotoxy(20, 5);	cout << " File 1 : ";
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7); gotoxy(20, 7);	cout << " File 2 : ";
-	gotoxy(20, 9);	cout << " File 3 : ";	gotoxy(20, 11);	cout << " File 4 : ";
-	gotoxy(20, 13);	cout << " File 5 : ";	gotoxy(20, 15);	cout << " File 6 : ";
-	gotoxy(20, 17);	cout << " File 7 : ";	gotoxy(20, 19);	cout << " File 8 : ";
-	gotoxy(20, 21);	cout << " File 9 : ";	gotoxy(20, 23);	cout << " File 10 : ";
-	board_basic(55, 5);
-	gotoxy(initialx + 99, initialy + 24);
-	char key;	int no = 0;		bool enter_check = 0;
-	while (!enter_check)		//操作直到enter
-	{
-		key = _getch();
-		switch (key)
-		{
-		case 13:					//read enter   
-		{
-			enter_check = true;	system("color 0f");		system("cls");		 break;
-		}
-		case 72:			//read 方向上  
-		{
-			no = no - 2;
-			if (no < 0) {
-				no = 0;	break;
-			}
-			else {
-				load_up_gotoxy(no);	break;
-			}
-		}
-		case 80:			//read 方向下
-		{
-			no = no + 2;
-			if (no > 18) {
-				no = 18;		break;
-			}
-			else {
-				load_down_gotoxy(no);	break;
-			}
-		}
-		}
-	}
-}
+
+//void load()						//file list
+//{
+//	const int row = 28, column = 117;
+//	/*外框*/
+//	gotoxy(0, 0);		cout << "┌";
+//	for (int i = 1; i < column; i++)		cout << "─";
+//	cout << "┐";
+//	for (int i = 1; i < row; i++)
+//	{
+//		gotoxy(0, i);		cout << "│";
+//		gotoxy(column, i);		cout << "│";
+//	}
+//	gotoxy(0, row);		cout << "└";
+//	for (int i = 1; i < column; i++)		cout << "─";
+//	cout << "┘";
+//	//--------------------------------------------------
+//	gotoxy(35, 2);	cout << "---------------Select your record---------------";
+//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);	gotoxy(20, 5);	cout << " File 1 : ";
+//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7); gotoxy(20, 7);	cout << " File 2 : ";
+//	gotoxy(20, 9);	cout << " File 3 : ";	gotoxy(20, 11);	cout << " File 4 : ";
+//	gotoxy(20, 13);	cout << " File 5 : ";	gotoxy(20, 15);	cout << " File 6 : ";
+//	gotoxy(20, 17);	cout << " File 7 : ";	gotoxy(20, 19);	cout << " File 8 : ";
+//	gotoxy(20, 21);	cout << " File 9 : ";	gotoxy(20, 23);	cout << " File 10 : ";
+//	board_basic(55, 5);
+//	gotoxy(initialx + 99, initialy + 24);
+//	char key;	int no = 0;		bool enter_check = 0;
+//	while (!enter_check)		//操作直到enter
+//	{
+//		key = _getch();
+//		switch (key)
+//		{
+//		case 13:					//read enter   
+//		{
+//			enter_check = true;	system("color 0f");		system("cls");		 break;
+//		}
+//		case 72:			//read 方向上  
+//		{
+//			no = no - 2;
+//			if (no < 0) {
+//				no = 0;	break;
+//			}
+//			else {
+//				load_up_gotoxy(no);	break;
+//			}
+//		}
+//		case 80:			//read 方向下
+//		{
+//			no = no + 2;
+//			if (no > 18) {
+//				no = 18;		break;
+//			}
+//			else {
+//				load_down_gotoxy(no);	break;
+//			}
+//		}
+//		}
+//	}
+//}
 void caption()				//rules,setting,others
 {
 	fstream file;
@@ -134,15 +135,13 @@ void initial_start()			//start game initial print
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	gotoxy(7, 1);		cout << "　戰　況　顯　示　";
 	gotoxy(boardleft, 1);		cout << "１  ２  ３  ４  ５  ６　７　８　９";
-	gotoxy(boardleft, row - 7);		cout << "九　八　七　六　五　四　三　二　一";
-	gotoxy(right + 9, 18);			cout << "Esc 選單";
-	gotoxy(right + 21, 18);		cout << "< 悔棋";
-	gotoxy(right + 31, 18);		cout << "> 還原";
-	gotoxy(right + 13, 21);			cout << "Enter     選取棋子";
+	gotoxy(boardleft, row - 7);		cout << "九　八　七　六　五　四　三　二　一";			//---------------------(34,21)
+	gotoxy(right + 9, 18);			cout << "Esc 選單";		gotoxy(right + 21, 18);		cout << "< 悔棋";	gotoxy(right + 31, 18);		cout << "> 還原";
+	gotoxy(right + 8, 21);			cout << "Enter  選取棋子   q  取消選棋";	
 	gotoxy(right + 14, 23);		cout << "↑";
 	gotoxy(right + 12, 24);			cout << "←";
 	gotoxy(right + 16, 24);		cout << "→";
-	gotoxy(right + 14, 25);		cout << "↓";
+	gotoxy(right + 14, 25);		cout << "↓"; 
 	gotoxy(right + 20, 24);		cout << "方向鍵控制游標";
 	//------------------------------------------------------------------------------
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
@@ -167,27 +166,140 @@ void initial_start()			//start game initial print
 	gotoxy(boardleft, 20);		cout << "╚ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╝ ";
 	gotoxy(boardleft, row - 8);
 }
-void load_down_gotoxy(int no)
-{
-	COORD point;
-	point.X = initialx; point.Y = initialy + no - 2;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//原位歸還
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << fileword[((no - 2) / 2)];
-	point.X = initialx; point.Y = initialy + no;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//到位反白
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << fileword[(no / 2)];
-	gotoxy(initialx + 99, initialy + 24);
-}
-void load_up_gotoxy(int no)
+//void load_down_gotoxy(int no)
+//{
+//	COORD point;
+//	point.X = initialx; point.Y = initialy + no - 2;
+//	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//原位歸還
+//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << fileword[((no - 2) / 2)];
+//	point.X = initialx; point.Y = initialy + no;
+//	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//到位反白
+//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << fileword[(no / 2)];
+//	gotoxy(initialx + 99, initialy + 24);
+//}
+//void load_up_gotoxy(int no)
+//{
+//	COORD pointup;
+//	pointup.X = initialx;  pointup.Y = initialy + no + 2;
+//	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << fileword[((no + 2) / 2)];
+//	pointup.X = initialx;  pointup.Y = initialy + no;
+//	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+//	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << fileword[(no / 2)];
+//	gotoxy(initialx + 99, initialy + 24);
+//}
+void replay_left_gotoxy()
 {
 	COORD pointup;
-	pointup.X = initialx;  pointup.Y = initialy + no + 2;
+	pointup.X = 94;  pointup.Y = 13;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << fileword[((no + 2) / 2)];
-	pointup.X = initialx;  pointup.Y = initialy + no;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "否(回主畫面)";
+	pointup.X = 90;  pointup.Y = 13;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << fileword[(no / 2)];
-	gotoxy(initialx + 99, initialy + 24);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "是";
+	gotoxy(92,13);
+}
+void replay_right_gotoxy()
+{
+	COORD pointup;
+	pointup.X =90;  pointup.Y = 13;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "是";
+	pointup.X = 94;  pointup.Y = 13;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "否(回主畫面)";
+	gotoxy(106,13);
+}
+void escmenu()
+{
+	gotoxy(32, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << "0繼續遊戲"; 
+	gotoxy(46, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "1儲存檔案";
+	gotoxy(60, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "2舉起白旗";
+	gotoxy(32, 25);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "3偷看說明";
+	gotoxy(46, 25);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "4可憐悔棋";
+	gotoxy(60, 25);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "5離開遊戲";
+	gotoxy(46, 27);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "←  →選擇";
+	gotoxy(41, 23);
+}
+void esc_left_gotoxy(int num)
+{
+	COORD pointup;
+	if (num > 2)
+	{
+		pointup.X = 32 + (num - 2) * 14;  pointup.Y = 25;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << escwords[num + 1];
+		pointup.X = 32 + (num - 3) * 14;  pointup.Y = 25;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << escwords[num];
+	}
+	else
+	{
+		if (num == 2)
+		{
+			pointup.X = 32 + (num - 2) * 14;  pointup.Y = 25;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << escwords[num + 1];
+			pointup.X = 32 + (num ) * 14;  pointup.Y = 23;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << escwords[num];
+		}
+		else
+		{
+			pointup.X = 32 + (num + 1) * 14;  pointup.Y = 23;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << escwords[num + 1];
+			pointup.X = 32 + (num) * 14;  pointup.Y = 23;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << escwords[num];
+		}
+	}
+	gotoxy(117, 29);
+}
+void esc_right_gotoxy(int num)
+{
+	COORD pointup;
+	if (num < 3)
+	{
+		pointup.X = 32 + (num-1 ) * 14;  pointup.Y = 23;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << escwords[num-1];
+		pointup.X = 32 + (num) * 14;  pointup.Y = 23;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << escwords[num];
+	}
+	else
+	{
+		if (num == 3)
+		{
+			pointup.X = 60;  pointup.Y = 23;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << escwords[num - 1];
+			pointup.X = 32;  pointup.Y = 25;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << escwords[num];
+		}
+		else
+		{
+			pointup.X = 32 + (num - 4) * 14;  pointup.Y = 25;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << escwords[num - 1];
+			pointup.X = 32 + (num-3) * 14;  pointup.Y = 25;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << escwords[num];
+		}
+	}
+	gotoxy(117, 29);
+}
+void escclear()
+{
+	gotoxy(32, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << "          ";
+	gotoxy(46, 23);		cout << "         ";
+	gotoxy(60, 23);		cout << "         ";
+	gotoxy(32, 25);		cout << "         ";
+	gotoxy(46, 25);		cout << "         ";
+	gotoxy(60, 25);		cout << "         ";
+	gotoxy(46, 27);		cout << "         ";
 }
 void board_basic(int boardx, int boardy)
 {

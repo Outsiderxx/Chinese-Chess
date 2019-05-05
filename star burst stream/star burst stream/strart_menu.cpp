@@ -45,7 +45,7 @@ void menuprint()
 	gotoxy(initialx, initialy + 1);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << menu[1];
 	gotoxy(initialx, initialy + 2); cout << menu[2];
 	gotoxy(initialx, initialy + 3);	cout << menu[3];
-	gotoxy(initialx + 64.5, initialy + 8);
+	gotoxy(initialx + 62.5, initialy + 8);
 }
 void up_gotoxy(int num)
 {
@@ -56,7 +56,7 @@ void up_gotoxy(int num)
 	pointup.X = initialx;  pointup.Y = initialy + num;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << menu[num];
-	gotoxy(initialx + 64.5, initialy + 8);
+	gotoxy(initialx + 62.5, initialy + 8);
 }
 void down_gotoxy(int num)
 {
@@ -67,6 +67,6 @@ void down_gotoxy(int num)
 	point.X = initialx; point.Y = initialy + num;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << menu[num];
-	gotoxy(initialx + 64.5, initialy + 8);
+	gotoxy(initialx + 62.5, initialy + 8);
 }
 
