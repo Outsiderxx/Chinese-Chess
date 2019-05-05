@@ -78,19 +78,3 @@ bool King::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		return 1;
 	}
 }
-
-bool King::kingMeetKing(King& enemyKing, vector<vector<int>> board)	//king meet king
-{
-	if (getx() == enemyKing.getx())
-	{
-		for (int loop = gety() > enemyKing.gety() ? enemyKing.gety() + 1 : gety() + 1; loop < gety() > enemyKing.gety() ? gety() : enemyKing.gety(); loop++)
-		{
-			if (board[loop][getx()] != 0)
-			{
-				return 0;
-			}
-		}
-		return 1;
-	}
-	return 0;
-}

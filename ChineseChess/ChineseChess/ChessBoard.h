@@ -40,6 +40,8 @@ public:
 	void replay(void);
 	//³Ó§Q
 	void win(bool);
+	//¤ý¹ï¤ý
+	bool kingMeetKing(vector<vector<int>>);
 private:
 	vector<vector<int>> curBoard;
 	vector<vector<vector<int>>> preBoard;

@@ -13,11 +13,13 @@ public:
 	//依照gameMode做相對應的動作
 	void action();
 	//棋局設定
-	void setPlayBoard(string);
+	bool setPlayBoard(string);
 	//取得說明書
 	void getManual();
 	//離開遊戲
 	void exitGame();
+	//預覽棋盤
+	void printBoard(void);
 private:
 	int gameMode = 0;
 	vector<vector<int>> initialPlayBoard;

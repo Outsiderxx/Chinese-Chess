@@ -84,10 +84,11 @@ void ChessBoard::changeCoordinate(void)
 }
 
 //顯示菜單
-//toDo=0 存檔 toDo=1 投降 toDo=2 說明 toDo=3 離開遊戲 toDo=4 悔棋
+//toDo=0 繼續 toDo=1 存檔 toDo=2 投降 toDo=3 說明 toDo=4 悔棋 toDo=5 離開遊戲 
 int ChessBoard::menu(void)
 {    
 	int toDo = 0;
+	//ESC清單畫面
 	while (true)
 	{
 		if (kbhit())
@@ -99,33 +100,39 @@ int ChessBoard::menu(void)
 				if (input == 72)
 				{
 					if (input == 0)
-						toDo = 2;
+						toDo = 0;
 					else
 						toDo--;
 				}
 				else if (input == 80)
 				{
-					if (toDo == 2)
-						toDo = 1;
+					if (toDo == 5)
+						toDo = 5;
 					else
 						toDo++;
 				}
 			}
-			if (input == 13)
+			else if(input == 13)
 			{
-				if (toDo == 0)
-					saveFile();
-				else if (toDo == 1)
+				switch (toDo)
+				{
+				case 0:
 					return 0;
-				else if (toDo == 2)
+				case 1:
+					saveFile();
+					break;
+				case 2:
 					return 1;
-				else if (toDo == 3)
+				case 3:
 					return 2;
-				else
+				case 4:
+					regret();
+					return 0;
+				case 5:
+					saveFile();
 					return 3;
+				}
 			}
-			if (input == 27)
-				return 0;
 		}
 	}
 }
@@ -156,9 +163,16 @@ void ChessBoard::saveBoard(void)
 //悔棋
 void ChessBoard::regret(void)
 {
-	curBoard = preBoard[preBoard.size() - 2];
-	preBoard.pop_back();
-	preBoard.pop_back();
+	if (preBoard.size() > 2)
+	{
+		curBoard = preBoard[preBoard.size() - 2];
+		preBoard.pop_back();
+		preBoard.pop_back();
+	}
+	else
+	{
+		cout << "無法悔棋" << endl;
+	}
 }
 
 //存檔
@@ -247,9 +261,16 @@ void ChessBoard::printBoard(void)
 
 void ChessBoard::replay(void)
 {
-	int index = 0;
+	curBoard = preBoard[0];
+	printBoard();
+	int index = 1;
 	while (true)
 	{
+		if (index == preBoard.size())
+		{
+			system("pause");
+			break;
+		}
 		if (kbhit())
 		{
 			int input = getch();
@@ -258,11 +279,6 @@ void ChessBoard::replay(void)
 				curBoard = preBoard[index];
 				printBoard();
 				index++;
-				if (index == preBoard.size())
-				{
-					system("pause");
-					break;
-				}
 			}
 		}
 	}
@@ -294,4 +310,38 @@ void ChessBoard::win(bool whoWin)
 			}
 		}
 	}
+}
+
+bool ChessBoard::kingMeetKing(vector<vector<int>> board)	//king meet king
+{
+	int kingX1, kingX2, kingY1,kingY2;
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			if (board[i][j] == 1)
+			{
+				kingY1 = i;
+				kingX1 = j;
+			}
+			if (board[i][j] == 8)
+			{
+				kingY2 = i;
+				kingX2 = j;
+			}
+		}
+	}
+	if (kingX1 == kingX2)
+	{
+		for (int loop=kingY1+1;loop<kingY2;loop++)
+		{
+
+			if (board[loop][kingX1] != 0)
+			{
+				return 0;
+			}
+		}
+		return 1;
+	}
+	return 0;
 }
