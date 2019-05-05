@@ -6,9 +6,9 @@ class ChineseChess
 {
 public:
 	ChineseChess() :gameMode(0) {}
-	//開始
+	//進行遊戲
 	void playGame(void);
-	//設定模式
+	//選擇功能
 	void setMode();
 	//依照gameMode做相對應的動作
 	void action();
@@ -22,6 +22,8 @@ public:
 	void printBoard(void);
 private:
 	int gameMode = 0;
+	//初始棋盤
 	vector<vector<int>> initialPlayBoard;
+	//初始出手方
 	bool initialTurn;
 };

@@ -1,16 +1,17 @@
-#pragma once
-#include <functional>			//function pointer		execute   function<type( args )> menuFunction[] = { a ,b , c };
 #include<fstream>
 #include"start_menu.h"
 using namespace std;
-void start();
-void load();
-void caption();
-void end();
-//void check_enter();
+
+void load(int);
 void initial_start();
+void load_down_gotoxy(int no,int);
+void load_up_gotoxy(int no,int);
+void board_basic(int boardx, int boardy);
 void escmenu();
-void load_down_gotoxy(int no);
-void load_up_gotoxy(int no);
-function<void()> menuFunction[];
+void esc_right_gotoxy(int num);
+void esc_left_gotoxy(int num);
+void escclear();
+void replay_left_gotoxy();
+void replay_right_gotoxy();
+
 

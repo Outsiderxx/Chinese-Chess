@@ -22,17 +22,21 @@ void ChineseChess::playGame()
 {
 	//初始化棋局
 	ChessBoard board(initialPlayBoard,initialTurn);
-	board.saveBoard();
-	board.printBoard();
+	initial_start();
 	//是否已選棋
 	bool haveChose = 0;
 	bool chooseKing = 0;
-	//選擇棋種
+	gotoxy(34, 20);
+	//儲存棋盤
+	board.saveBoard();
+	//輸出棋盤
+	board.printBoard();
+	//棋子
 	chessBasic *chess = NULL;
 	while (true)
 	{
 		//偵測鍵盤是否有輸入
-		if (kbhit())
+		if (_kbhit())
 		{
 			int input = getch();
 			//輸入方向鍵
@@ -54,10 +58,13 @@ void ChineseChess::playGame()
 					Horse horseChess;
 					bubble bubbleChess;
 					slave slaveChess;
+					//判斷選取的旗子是否為己方
 					if (((board.getTurn() && board.getChess() > 7) || (!board.getTurn() && board.getChess() < 8)) && board.getChess() != 0)
 					{
+						//已選擇棋子
 						haveChose = 1;
 						int chessType = board.getChess() - board.getTurn() * 7;
+						//根據棋盤上的數字，選擇對應的棋子
 						switch (chessType)
 						{
 						case 1:
@@ -85,6 +92,7 @@ void ChineseChess::playGame()
 						default:
 							break;
 						}
+						//設定棋子座標陣營
 						chess->setx(board.getCurX());
 						chess->sety(board.getCurY());
 						chess->setCamp(board.getTurn());
@@ -99,10 +107,13 @@ void ChineseChess::playGame()
 						int haveWin = 0;
 						//進行移動
 						haveWin = board.move(chess);
+						//選擇棋子是否為將或帥
 						if (chooseKing)
 						{
+							//是否有王對王情況出現
 							if (board.kingMeetKing(board.getBoard()))
 							{
+								//王對王出現時，對方勝利
 								if (board.getTurn())
 									haveWin = 1;
 								else
@@ -115,7 +126,7 @@ void ChineseChess::playGame()
 						board.saveBoard();
 						//換另一方動作
 						board.changeTurn();
-						system("cls");
+						//輸出棋局
 						board.printBoard();
 						//判斷勝負狀態
 						if (haveWin == 1)
@@ -131,11 +142,12 @@ void ChineseChess::playGame()
 					}
 				}
 			}
-			//輸入ESC
+			//叫出選單
 			else if (input == 27)
 			{
 				int leaveFlag;
 				leaveFlag = board.menu();
+				//選擇投降，對方勝利
 				if (leaveFlag == 1)
 				{
 					if (board.getTurn())
@@ -149,11 +161,19 @@ void ChineseChess::playGame()
 						break;
 					}
 				}
+				//顯示說明書
 				else if (leaveFlag == 2)
+				{
+					system("cls");
 					getManual();
+					initial_start();
+					board.printBoard();
+				}
+				//離開遊戲
 				else if (leaveFlag == 3)
 					exitGame();
 			}
+			//取消選擇棋子
 			else if(input=='q')
 				haveChose = 0;
 		}
@@ -165,11 +185,12 @@ void ChineseChess::playGame()
 //post:儲存使用者選擇的模式
 void ChineseChess::setMode()
 {
+	//主選單介面
 	menuprint();
 	while (true)
 	{
 		//偵測是否有鍵盤輸入
-		if (kbhit())
+		if (_kbhit())
 		{
 			int input = getch();
 			//輸入鍵為方向鍵
@@ -179,24 +200,20 @@ void ChineseChess::setMode()
 				//輸入鍵為UP
 				if (input == 72)
 				{
+					up_gotoxy(gameMode);
 					if (gameMode == 0)
-						gameMode = 0;
+						gameMode = 3;
 					else
-					{
 						gameMode--;
-						up_gotoxy(gameMode);
-					}
 				}
 				//輸入鍵為DOWN
 				else if (input == 80)
 				{
+					down_gotoxy(gameMode);
 					if (gameMode == 3)
-						gameMode = 3;
+						gameMode = 0;
 					else
-					{
 						gameMode++;
-						down_gotoxy(gameMode);
-					}
 				}
 			}
 			//輸入鍵為ENTER
@@ -221,17 +238,21 @@ void ChineseChess::action()
 	int setFileFlag = 0;
 	if (gameMode == 1)
 	{
+		//從舊檔讀取棋盤
 		setFileFlag = setPlayBoard("oldBoard.txt");
+		//成功讀取棋盤
 		if (setFileFlag)
 			playGame();
 	}
 	else if (gameMode == 2)
-		caption();
+		getManual();
 	else if (gameMode == 3)
 		exitGame();
 	else
 	{
+		//標準棋局
 		setFileFlag = setPlayBoard("initial.txt");
+		//成功讀取棋盤
 		if (setFileFlag)
 			playGame();
 	}
@@ -252,6 +273,7 @@ bool ChineseChess::setPlayBoard(string file)
 		//正常開局
 		if (file == "initial.txt")
 		{
+			//將檔案內容讀取到vector
 			for (int i = 0; i < 10; i++)
 			{
 				for (int j = 0; j < 9; j++)
@@ -277,6 +299,7 @@ bool ChineseChess::setPlayBoard(string file)
 			}
 			while (true)
 			{
+				//將檔案內容讀取到vector
 				for (int i = 0; i < 10; i++)
 				{
 					for (int j = 0; j < 9; j++)
@@ -293,26 +316,31 @@ bool ChineseChess::setPlayBoard(string file)
 			//選擇殘局
 			bool chooseFile = 0;
 			int index = 0;
-			//檔案列表畫面
+			load(allBoard.size());
 			while (true)
 			{
-				if (kbhit())
+				if (_kbhit())
 				{
 					int input = getch();
+					//特殊功能鍵
 					if (input == 224)
 					{
 						input = getch();
+						//UP
 						if (input == 72)
 						{
+							load_up_gotoxy(index, allBoard.size() - 1);
 							if (index == 0)
-								index = 0;
+								index = allBoard.size() - 1;
 							else
 								index--;
 						}
+						//DOWN
 						else if (input == 80)
 						{
+							load_down_gotoxy(index, allBoard.size() - 1);
 							if (index == allBoard.size() - 1)
-								index = allBoard.size() - 1;
+								index = 0;
 							else
 								index++;
 						}
@@ -322,13 +350,19 @@ bool ChineseChess::setPlayBoard(string file)
 						initialPlayBoard = allBoard[index];
 						initialTurn = allTurn[index];
 						printBoard();
-						input = getch();
 						while (true)
 						{
-							if (kbhit())
+							if (_kbhit())
 							{
+								input = getch();
+								//確定選擇此棋盤進行遊戲
 								if (input == 13)
+								{
+									system("color 0f");
+									system("cls");
 									return 1;
+								}
+								//重新選擇
 								else if (input == 27)
 									break;
 							}
@@ -352,9 +386,21 @@ bool ChineseChess::setPlayBoard(string file)
 //post:顯示ChineseChess玩法說明
 void ChineseChess::getManual()
 {
+	system("mode con cols=120 lines=30");
 	ifstream manualFile("manual.txt");
 	if (manualFile.is_open())
-		cout << manualFile.rdbuf();
+	{
+		string buffer;
+		while (!manualFile.eof())
+		{
+			for (int i = 0; i < 30 && getline(manualFile, buffer); i++)
+			{
+				cout << buffer << endl;
+			}
+			system("pause");
+			system("cls");
+		}
+	}
 	else
 		cout << "open manual fail" << endl;
 	manualFile.close();
@@ -366,70 +412,48 @@ void ChineseChess::getManual()
 void ChineseChess::exitGame()
 {
 	cout << "Good bye!" << endl;
+	Sleep(1000);
 	exit(1);
 }
 
 void ChineseChess::printBoard(void)
 {
-	system("cls");
+	int x = 51, y = 3;
+	board_basic(55, 5);
 	for (int i = 0; i < 10; i++)
 	{
+		y = y + 2;	
+		gotoxy(x, y);
 		for (int j = 0; j < 9; j++)
 		{
+			x = x + 4;		 gotoxy(x, y);
 			switch (initialPlayBoard[i][j])
 			{
-			case 1:
-				cout << "將 ";
-				break;
-			case 2:
-				cout << "士 ";
-				break;
-			case 3:
-				cout << "象 ";
-				break;
-			case 4:
-				cout << "車 ";
-				break;
-			case 5:
-				cout << "馬 ";
-				break;
-			case 6:
-				cout << "包 ";
-				break;
-			case 7:
-				cout << "卒 ";
-				break;
-			case 8:
-				cout << "帥 ";
-				break;
-			case 9:
-				cout << "仕 ";
-				break;
-			case 10:
-				cout << "相 ";
-				break;
-			case 11:
-				cout << "車 ";
-				break;
-			case 12:
-				cout << "馬 ";
-				break;
-			case 13:
-				cout << "炮 ";
-				break;
-			case 14:
-				cout << "兵 ";
-				break;
-			default:
-				cout << "空 ";
-				break;
+			case 1: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "將";	break; }
+			case 2: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "士";	break; }
+			case 3: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "象";	break; }
+			case 4: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "車";	break; }
+			case 5: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "馬";	break; }
+			case 6: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "包";	break; }
+			case 7: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "卒";	break; }
+			case 8: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "帥";	break; }
+			case 9: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "仕";	break; }
+			case 10: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "相";	break; }
+			case 11: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "車";	break; }
+			case 12: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "傌";	break; }
+			case 13: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "炮";	break; }
+			case 14: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "兵";	break; }
 			}
 		}
-		cout << endl << endl;
+		x = 51;	
 	}
 	if (initialTurn)
-		cout << "紅方下棋" << endl;
+	{
+		//cout << "紅方下棋" << endl;
+	}
 	else
-		cout << "黑方下棋" << endl;
+	{
+		//cout << "黑方下棋" << endl;
+	}
 }
 
