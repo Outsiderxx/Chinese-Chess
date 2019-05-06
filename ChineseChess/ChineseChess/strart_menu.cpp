@@ -56,7 +56,7 @@ void up_gotoxy(int num)
 	cout << menu[num];
 	pointup.X = initialx;
 	if (num == 0)
-		pointup.Y = initialy + num + 3;
+		pointup.Y = initialy + 3;
 	else
 		pointup.Y = initialy + num - 1;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
@@ -76,7 +76,7 @@ void down_gotoxy(int num)
 	cout << menu[num];
 	point.X = initialx; 	
 	if (num == 3)
-		point.Y = initialy + num - 3;
+		point.Y = initialy;
 	else
 		point.Y = initialy + num + 1;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//到位反白
@@ -84,7 +84,7 @@ void down_gotoxy(int num)
 	if (num == 3)
 		cout << menu[0];
 	else
-		cout << menu[+1];
+		cout << menu[num + 1];
 	gotoxy(117, 29);
 }
 

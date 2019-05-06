@@ -1,2 +1,10 @@
-﻿  ChessBoard.cpp
+﻿  strart_menu.cpp
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(44): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(45): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(46): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(47): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(53): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(57): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(73): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\strart_menu.cpp(77): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
   ChineseChess.vcxproj -> D:\My file\Github\Chinese-chess\ChineseChess\Debug\ChineseChess.exe

@@ -124,7 +124,7 @@ int ChessBoard::menu(void)
 				case 1: {	saveFile();	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2);  return 0; }
 				case 2: {	escclear();	gotoxy(34 + curX * 4, 2 + curY * 2); return 1; }
 				case 3: {	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2); return 2; }
-				case 4: {	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2); regret(); return 0; }			//沒悔到棋---------------------應該是沒print的問題
+				case 4: {	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2); regret(); return 0; }		
 				case 5: {	escclear(); gotoxy(34 + curX * 4, 2 + curY * 2); return 3; }
 				}
 			}
