@@ -91,3 +91,82 @@ bool Elephant::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	}
 	return 0;
 }
+
+vector<vector<bool> > Elephant::hint(int nowx, int nowy, vector<vector<int> > board)
+{
+	vector<vector<bool> >anotherBoard;
+	anotherBoard.resize(9);
+	for (int loop = 0; loop < 9; loop++)
+	{
+		anotherBoard[loop].resize(10);
+	}
+	for (int loop = 0; loop < 9; loop++)
+	{
+		for (int loop1 = 0; loop1 < 10; loop1++)
+		{
+			anotherBoard[loop][loop1] = 0;
+		}
+	}
+
+	if (nowx + 2 < 9 && nowy + 2 < 10)						//right down
+	{
+		if (!getCamp() && nowy + 2 > 4)						//no cross river(black)
+		{
+			//can't move
+		}
+		else if (board[nowy + 1][nowx + 1] != 0)			//be blocked
+		{
+			//can't move
+		}
+		else
+		{
+			anotherBoard[nowy + 2][nowx + 2] = 1;			//move hint
+		}
+	}
+	if (nowx - 2 >= 0 && nowy + 2 < 10)						//left down
+	{
+		if (!getCamp() && nowy + 2 > 4)						//no cross river(black)
+		{
+			//can't move
+		}
+		else if (board[nowy + 1][nowx + 1] != 0)			//be blocked
+		{
+			//can't move
+		}
+		else
+		{
+			anotherBoard[nowy + 2][nowx - 2] = 1;			//move hint
+		}
+	}
+	if (nowx + 2 < 9 && nowy - 2 >= 0)						//right up
+	{
+		if (getCamp() && nowy - 2 < 5)						//no cross river(red)
+		{
+			//can't move
+		}
+		else if (board[nowy + 1][nowx + 1] != 0)			//be blocked
+		{
+			//can't move
+		}
+		else
+		{
+			anotherBoard[nowy - 2][nowx + 2] = 1;			//move hint
+		}
+	}
+	if (nowx - 2 >= 0 && nowy - 2 >= 0)						//left up
+	{
+		if (getCamp() && nowy - 2 < 5)						//no cross river(red)
+		{
+			//can't move
+		}
+		else if (board[nowy + 1][nowx + 1] != 0)			//be blocked
+		{
+			//can't move
+		}
+		else
+		{
+			anotherBoard[nowy - 2][nowx - 2] = 1;			//move hint
+		}
+	}
+	return anotherBoard;
+}

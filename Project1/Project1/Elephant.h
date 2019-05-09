@@ -2,8 +2,7 @@
 class Elephant : public chessBasic
 {
 public:
-	Elephant(void) { moveCount = 0; }
+	Elephant(void) {}
 	bool isMovable(int, int, vector<vector<int> >);
-private:
-	int moveCount;
+	vector<vector<bool> > hint(int, int, vector<vector<int> >);
 };
