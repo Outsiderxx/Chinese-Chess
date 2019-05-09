@@ -118,6 +118,14 @@ vector<vector<bool> > Elephant::hint(int nowx, int nowy, vector<vector<int> > bo
 		{
 			//can't move
 		}
+		else if (board[nowy + 2][nowx + 2] != 0 && !getCamp() && board[nowy + 2][nowx + 2] <= 7)	//same camp(black)
+		{
+			//can't move
+		}
+		else if (board[nowy + 2][nowx + 2] != 0 && getCamp() && board[nowy + 2][nowx + 2] > 7)		//same camp(red)
+		{
+			//can't move
+		}
 		else
 		{
 			anotherBoard[nowy + 2][nowx + 2] = 1;			//move hint
@@ -129,7 +137,15 @@ vector<vector<bool> > Elephant::hint(int nowx, int nowy, vector<vector<int> > bo
 		{
 			//can't move
 		}
-		else if (board[nowy + 1][nowx + 1] != 0)			//be blocked
+		else if (board[nowy + 1][nowx - 1] != 0)			//be blocked
+		{
+			//can't move
+		}
+		else if (board[nowy + 2][nowx - 2] != 0 && !getCamp() && board[nowy + 2][nowx - 2] <= 7)	//same camp(black)
+		{
+			//can't move
+		}
+		else if (board[nowy + 2][nowx - 2] != 0 && getCamp() && board[nowy + 2][nowx - 2] > 7)		//same camp(red)
 		{
 			//can't move
 		}
@@ -144,7 +160,15 @@ vector<vector<bool> > Elephant::hint(int nowx, int nowy, vector<vector<int> > bo
 		{
 			//can't move
 		}
-		else if (board[nowy + 1][nowx + 1] != 0)			//be blocked
+		else if (board[nowy - 1][nowx + 1] != 0)			//be blocked
+		{
+			//can't move
+		}
+		else if (board[nowy - 2][nowx + 2] != 0 && !getCamp() && board[nowy - 2][nowx + 2] <= 7)	//same camp(black)
+		{
+			//can't move
+		}
+		else if (board[nowy - 2][nowx + 2] != 0 && getCamp() && board[nowy - 2][nowx + 2] > 7)		//same camp(red)
 		{
 			//can't move
 		}
@@ -159,7 +183,15 @@ vector<vector<bool> > Elephant::hint(int nowx, int nowy, vector<vector<int> > bo
 		{
 			//can't move
 		}
-		else if (board[nowy + 1][nowx + 1] != 0)			//be blocked
+		else if (board[nowy - 1][nowx - 1] != 0)			//be blocked
+		{
+			//can't move
+		}
+		else if (board[nowy + 2][nowx + 2] != 0 && !getCamp() && board[nowy + 2][nowx + 2] <= 7)	//same camp(black)
+		{
+			//can't move
+		}
+		else if (board[nowy + 2][nowx + 2] != 0 && getCamp() && board[nowy + 2][nowx + 2] > 7)		//same camp(red)
 		{
 			//can't move
 		}
