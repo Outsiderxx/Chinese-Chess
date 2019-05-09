@@ -23,12 +23,15 @@ void ChineseChess::playGame()
 	//ªì©l¤Æ´Ñ§½
 	ChessBoard board(initialPlayBoard,initialTurn);
 	initial_start();
-	board.saveBoard();
-	board.printBoard();		gotoxy(34, 20);
 	//¬O§_¤w¿ï´Ñ
 	bool haveChose = 0;
 	bool chooseKing = 0;
-	//¿ï¾Ü´ÑºØ
+	gotoxy(34, 20);
+	//Àx¦s´Ñ½L
+	board.saveBoard();
+	//¿é¥X´Ñ½L
+	board.printBoard();
+	//´Ñ¤l
 	chessBasic *chess = NULL;
 	while (true)
 	{
@@ -55,10 +58,15 @@ void ChineseChess::playGame()
 					Horse horseChess;
 					bubble bubbleChess;
 					slave slaveChess;
+					//§PÂ_¿ï¨úªººX¤l¬O§_¬°¤v¤è
 					if (((board.getTurn() && board.getChess() > 7) || (!board.getTurn() && board.getChess() < 8)) && board.getChess() != 0)
 					{
+						//¤w¿ï¾Ü´Ñ¤l
 						haveChose = 1;
+						gotoxy(84, 8);
 						int chessType = board.getChess() - board.getTurn() * 7;
+						board.printChess(chessType);
+						//®Ú¾Ú´Ñ½L¤Wªº¼Æ¦r¡A¿ï¾Ü¹ïÀ³ªº´Ñ¤l
 						switch (chessType)
 						{
 						case 1:
@@ -86,9 +94,11 @@ void ChineseChess::playGame()
 						default:
 							break;
 						}
+						//³]©w´Ñ¤l®y¼Ð°}Àç
 						chess->setx(board.getCurX());
 						chess->sety(board.getCurY());
 						chess->setCamp(board.getTurn());
+						gotoxy(34 + 4 * board.getCurX(), 2 + 2 * board.getCurY());
 					}
 				}
 				//¤w¿ï¾Ü´Ñ¤l¡A¶i¦æ²¾°Ê
@@ -100,15 +110,19 @@ void ChineseChess::playGame()
 						int haveWin = 0;
 						//¶i¦æ²¾°Ê
 						haveWin = board.move(chess);
+						//¿ï¾Ü´Ñ¤l¬O§_¬°±N©Î«Ó
 						if (chooseKing)
 						{
+							//¬O§_¦³¤ý¹ï¤ý±¡ªp¥X²{
 							if (board.kingMeetKing(board.getBoard()))
 							{
+								//¤ý¹ï¤ý¥X²{®É¡A¹ï¤è³Ó§Q
 								if (board.getTurn())
 									haveWin = 1;
 								else
 									haveWin = 2;
 							}
+							chooseKing = 0;
 						}
 						//§ïÅÜ¿ï´Ñª¬ºA
 						haveChose = 0;
@@ -116,7 +130,12 @@ void ChineseChess::playGame()
 						board.saveBoard();
 						//´«¥t¤@¤è°Ê§@
 						board.changeTurn();
+						//¿é¥X´Ñ§½
 						board.printBoard();
+						gotoxy(85, 8);
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+						cout << "                     ";
+						gotoxy(34 + 4 * board.getCurX(), 2 + 2 * board.getCurY());
 						//§PÂ_³Ó­tª¬ºA
 						if (haveWin == 1)
 						{
@@ -131,12 +150,13 @@ void ChineseChess::playGame()
 					}
 				}
 			}
-			//¿é¤JESC
+			//¥s¥X¿ï³æ
 			else if (input == 27)
 			{
 				int leaveFlag;
 				leaveFlag = board.menu();
-				if (leaveFlag == 1)				//§ë­°
+				//¿ï¾Ü§ë­°¡A¹ï¤è³Ó§Q
+				if (leaveFlag == 1)
 				{
 					if (board.getTurn())
 					{
@@ -149,13 +169,19 @@ void ChineseChess::playGame()
 						break;
 					}
 				}
-				else if (leaveFlag == 2)		//»¡©ú®Ñ---------------------------------------Åª§¹¨S¦^­ì´Ñ½L???
+				//Åã¥Ü»¡©ú®Ñ
+				else if (leaveFlag == 2)
 				{
-					system("cls");	caption();
+					system("cls");
+					getManual();
+					initial_start();
+					board.printBoard();
 				}
-				else if (leaveFlag == 3)		//Â÷¶}
+				//Â÷¶}¹CÀ¸
+				else if (leaveFlag == 3)
 					exitGame();
 			}
+			//¨ú®ø¿ï¾Ü´Ñ¤l
 			else if(input=='q')
 				haveChose = 0;
 		}
@@ -167,6 +193,7 @@ void ChineseChess::playGame()
 //post:Àx¦s¨Ï¥ÎªÌ¿ï¾Üªº¼Ò¦¡
 void ChineseChess::setMode()
 {
+	//¥D¿ï³æ¤¶­±
 	menuprint();
 	while (true)
 	{
@@ -181,24 +208,20 @@ void ChineseChess::setMode()
 				//¿é¤JÁä¬°UP
 				if (input == 72)
 				{
+					up_gotoxy(gameMode);
 					if (gameMode == 0)
-						gameMode = 0;
+						gameMode = 3;
 					else
-					{
 						gameMode--;
-						up_gotoxy(gameMode);
-					}
 				}
 				//¿é¤JÁä¬°DOWN
 				else if (input == 80)
 				{
+					down_gotoxy(gameMode);
 					if (gameMode == 3)
-						gameMode = 3;
+						gameMode = 0;
 					else
-					{
 						gameMode++;
-						down_gotoxy(gameMode);
-					}
 				}
 			}
 			//¿é¤JÁä¬°ENTER
@@ -223,17 +246,21 @@ void ChineseChess::action()
 	int setFileFlag = 0;
 	if (gameMode == 1)
 	{
+		//±qÂÂÀÉÅª¨ú´Ñ½L
 		setFileFlag = setPlayBoard("oldBoard.txt");
+		//¦¨¥\Åª¨ú´Ñ½L
 		if (setFileFlag)
 			playGame();
 	}
 	else if (gameMode == 2)
-		caption();
+		getManual();
 	else if (gameMode == 3)
 		exitGame();
 	else
 	{
+		//¼Ð·Ç´Ñ§½
 		setFileFlag = setPlayBoard("initial.txt");
+		//¦¨¥\Åª¨ú´Ñ½L
 		if (setFileFlag)
 			playGame();
 	}
@@ -254,6 +281,7 @@ bool ChineseChess::setPlayBoard(string file)
 		//¥¿±`¶}§½
 		if (file == "initial.txt")
 		{
+			//±NÀÉ®×¤º®eÅª¨ú¨ìvector
 			for (int i = 0; i < 10; i++)
 			{
 				for (int j = 0; j < 9; j++)
@@ -279,6 +307,7 @@ bool ChineseChess::setPlayBoard(string file)
 			}
 			while (true)
 			{
+				//±NÀÉ®×¤º®eÅª¨ú¨ìvector
 				for (int i = 0; i < 10; i++)
 				{
 					for (int j = 0; j < 9; j++)
@@ -295,26 +324,31 @@ bool ChineseChess::setPlayBoard(string file)
 			//¿ï¾Ü´Ý§½
 			bool chooseFile = 0;
 			int index = 0;
-			//ÀÉ®×¦Cªíµe­±
+			load(allBoard.size());
 			while (true)
 			{
 				if (_kbhit())
 				{
 					int input = _getch();
+					//¯S®í¥\¯àÁä
 					if (input == 224)
 					{
 						input = _getch();
+						//UP
 						if (input == 72)
 						{
+							load_up_gotoxy(index, allBoard.size() - 1);
 							if (index == 0)
-								index = 0;
+								index = allBoard.size() - 1;
 							else
 								index--;
 						}
+						//DOWN
 						else if (input == 80)
 						{
+							load_down_gotoxy(index, allBoard.size() - 1);
 							if (index == allBoard.size() - 1)
-								index = allBoard.size() - 1;
+								index = 0;
 							else
 								index++;
 						}
@@ -324,47 +358,114 @@ bool ChineseChess::setPlayBoard(string file)
 						initialPlayBoard = allBoard[index];
 						initialTurn = allTurn[index];
 						printBoard();
-						input = _getch();
 						while (true)
 						{
 							if (_kbhit())
 							{
+								input = _getch();
+								//½T©w¿ï¾Ü¦¹´Ñ½L¶i¦æ¹CÀ¸
 								if (input == 13)
+								{
+									system("color 0f");
+									system("cls");
 									return 1;
+								}
+								//­«·s¿ï¾Ü
+								else if (input == 'q')
+								{
+									for(int j=5;j<24;j++) { gotoxy(45, j);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << "                                     "; }
+									gotoxy(117,29); break;
+								}
 								else if (input == 27)
-									break;
+									return 0;
 							}
 						}
 					}
+					else if (input == 27)
+						return 0;
 				}
 			}
 		}
 	}
 	else
 	{
-		cout << "¸ü¤J´Ñ§½¥¢±Ñ" << endl;
-		system("pause");
+		gotoxy(20, 5); cout << "-----------------------------´Ñ¥½Ãa¹BÄ_Ä_´£¥Ü ! ! !----------------------------";	gotoxy(22, 7);	cout << "==============";		gotoxy(83, 7);	cout << "==============";
+		gotoxy(22, 8);	cout << "==============";		gotoxy(83, 8);	cout << "==============";
+		for (int i = 1; i < 6; i++) { gotoxy(28, 8 + i);	cout << "ùø";		 gotoxy(89, 8 + i); cout << "ùø"; }
+		for (int i = 1; i < 4; i++) { gotoxy(28, 19 + i);	cout << "ùø";		 gotoxy(89, 19 + i); cout << "ùø"; }
+		gotoxy(27, 23); cout << "----------------------´Ñ¥½Ãa¹BÄ_Ä_´£¥Ü ! ! !---------------------";
+		gotoxy(52, 12); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 244); cout << "¨S ¦³ ¦s ÀÉ ";	
+		gotoxy(50, 14);		cout << "¬O ­n «ç »ò Åª ? ";	gotoxy(44, 16); cout << "¨Ä ¨Ä ¥h ª± ¤@ §½ ¦s §¹ ¦A ¨Ó";
+		gotoxy(48, 20);		system("pause");		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  system("cls");
 		return 0;
 	}
 	inputFile.close();
 }
 
+//intent:Åã¥Ü»¡©ú
+//pre:ª«¥ó¤w«Ø¥ß
+//post:Åã¥ÜChineseChessª±ªk»¡©ú
+void ChineseChess::getManual()
+{
+	system("mode con cols=120 lines=30");
+	ifstream manualFile("manual.txt");
+	if (manualFile.is_open())
+	{
+		string buffer;
+		while (!manualFile.eof())
+		{
+			for (int i = 0; i < 30 && getline(manualFile, buffer); i++)
+			{
+				cout << buffer << endl;
+			}
+			system("pause");
+			system("cls");
+		}
+	}
+	else
+	{
+		cout << "³W«h»¡©úÀÉ¿ò¥¢" << endl;
+		system("pause");
+		system("cls");
+	}
+	manualFile.close();
+}
 
 //intent:Â÷¶}¹CÀ¸
 //pre:ª«¥ó¤w«Ø¥ß
 //post:¿é¥X°T®§¨ÃÂ÷¶}¹CÀ¸
 void ChineseChess::exitGame()
 {
-	exit(0);
+	system("color 07");
+	gotoxy(28, 7);	cout << "      [33m                          ¢­ ¡þ                       [37m       " ;
+	gotoxy(28, 8);		cout << "    [1m                 ¢¨¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i                 [m   " ;
+	gotoxy(28, 9);		cout << "[1m                   ¢¨¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i                 [m   " ;
+	gotoxy(28, 10);		cout << "[1m                   ¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i                [m      ";
+	gotoxy(28, 11);		cout << "[1m                   ¢i                ¢i¢i¢i               [m      " ;
+	gotoxy(28, 12);		cout << "[1m                   ¢i  ¤QÂI«á§O¶i    ¢i¢i¢i               [m       " ;
+	gotoxy(28, 13);		cout << "[1m                   ¢i  ¹CÀ¸¡A¦]¬°    ¢i¢i¢i  (Ãö¹q¸£¡I)   [m       " ;
+	gotoxy(28, 14);		cout << "[1m         ¯«¸g¯f¡I  ¢i                ¢i¢i¢i               [m       " ;
+	gotoxy(28, 15);		cout << "[1m                   ¢i  §ÚºÎÅo~~~     ¢i¢i¢i               [m    " ;
+	gotoxy(28, 16);		cout << "[1m     [33m¢¨¢i¢i¢©[37m¢£     ¢i                ¢i¢i¢i               [m     ";
+	gotoxy(28, 17);		cout << "[1m     [33m¢i[m£¿ £½[1;33m ¢j[37m    ¢i                ¢i¢i¢i               [m  ";
+	gotoxy(28, 18);		cout << "[1m     [33m¢«[m¡¼¡s¡¼[1;33m¢j[37m    ¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i¢«¢i               [m    " ;
+	gotoxy(28, 19);		cout << "[1m     ¢­   ¢²¢¬  ¢d   ¢i                ¢i                   [m  ";
+	gotoxy(28, 20);		cout << "[1m    ¢¨¡Ã  ¡Ã¢«     ¢i                ¢i                   [m ";
+	gotoxy(28, 21);		 cout << "[1m     ¡U    ¡U                                            [m   ";
+	gotoxy(28, 22);		cout << "[1m      ¢«¡Ã¢ª                                           [m      ";
+	gotoxy(28, 23);		cout << "                                   [1;31m  No Time no see »¶¡I[m      ";		gotoxy(117, 29);
+	Sleep(2000);
+	exit(1);
 }
 
 void ChineseChess::printBoard(void)
 {
-	int x = 30, y = 0;
-	initial_start();
+	int x = 41, y = 3;
+	board_basic(45, 5);
 	for (int i = 0; i < 10; i++)
 	{
-		y = y + 2;	gotoxy(x, y);
+		y = y + 2;	
+		gotoxy(x, y);
 		for (int j = 0; j < 9; j++)
 		{
 			x = x + 4;		 gotoxy(x, y);
@@ -380,21 +481,13 @@ void ChineseChess::printBoard(void)
 			case 8: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "«Ó";	break; }
 			case 9: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "¥K";	break; }
 			case 10: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "¬Û";	break; }
-			case 11: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "ú©";	break; }
+			case 11: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "¨®";	break; }
 			case 12: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "ØX";	break; }
 			case 13: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "¬¶";	break; }
 			case 14: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "§L";	break; }
 			}
 		}
-		x = 30;	gotoxy(34, 20);
-	}
-	if (initialTurn)
-	{
-		//cout << "¬õ¤è¤U´Ñ" << endl;
-	}
-	else
-	{
-		//cout << "¶Â¤è¤U´Ñ" << endl;
+		x = 41;	
 	}
 }
 

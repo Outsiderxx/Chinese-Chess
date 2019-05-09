@@ -95,5 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Initial.txt" />
+    <Text Include="manual.txt" />
+    <Text Include="oldBoard.txt" />
   </ItemGroup>
 </Project>

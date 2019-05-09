@@ -145,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Initial.txt" />
+    <Text Include="manual.txt" />
+    <Text Include="oldBoard.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

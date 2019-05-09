@@ -74,14 +74,14 @@ bool Car::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 						obstacle = true;
 						break;
 					}
-					if (obstacle) //there are some obstacle between Car and its destnation.
-					{
-						return 0;
-					}
-					else
-					{
-						return 1;
-					}
+				}
+				if (obstacle) //there are some obstacle between Car and its destnation.
+				{
+					return 0;
+				}
+				else
+				{
+					return 1;
 				}
 			}
 			else if (dest_x > nowx) //go right.
@@ -93,14 +93,14 @@ bool Car::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 						obstacle = true;
 						break;
 					}
-					if (obstacle) //there are some obstacle between Car and its destnation.
-					{
-						return 0;
-					}
-					else
-					{
-						return 1;
-					}
+				}
+				if (obstacle) //there are some obstacle between Car and its destnation.
+				{
+					return 0;
+				}
+				else
+				{
+					return 1;
 				}
 			}
 		}

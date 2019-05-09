@@ -1,7 +1,7 @@
 #include "start_menu.h"
 #define initialx 54.5
 #define initialy 21
-const string menu[4] = { "¶}©l¹Cְ¸", "ֵ×¨תְֹ®׳" ,"¾Þ§@»¡©ת" ,"  ֲק¶}  " };			//¿ן³זconst¥‏°ל
+const string menu[4] = { "¶}©l¹Cְ¸", "ֵ×¨תְֹ®׳" ,"³W«h»¡©ת" ,"  ֲק¶}  " };			//¿ן³זconst¥‏°ל
 
 void gotoxy(int x, int y)
 {
@@ -14,7 +14,7 @@ void menuprint()
 	system("mode con cols=118 lines=30");			//set console size
 	for (int i = 0; i < 19; i++) { gotoxy(8, 0 + i);	cout << "|"; }
 	for (int i = 0; i < 19; i++) { gotoxy(110, 0 + i);	cout << "|"; }
-	system("color 0e"); 
+	system("color 0e");
 	gotoxy(20, 2); cout << "[1;36;44mשÝ שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שש שß [m" << '\n';
 	gotoxy(20, 3); cout << "[1;36;44mשר [37;40m[33;50m¢~ ¢w ¢w ¢w ¢w ¢w ¢w ¢w ¢w ¢w ¢w  [37m  ¡´ ±N¡´ ₪h¡´ ¶H¡´ ¨®¡´ °¨¡´ ¥]¡´ ¨ע¡´ ¨ע¡´       [36;44mשר [m" << '\n';
 	gotoxy(20, 4); cout << "[1;36;44mשר [33;40m¢x Do it Again !!!!¢x   [37m  <[33m¡¶[37m¡ב<[36m¡¶[37m¡ב<[32m¡¶[37m¡ב<[31m¡¶[37m¡ב<[36m¡¶[37m¡ב<[32m¡¶[37m¡ב<[33m¡¶[37m¡ב<[31m¡¶[37m¡ב<[35m¡¶[37m¡ב     [36;44mשר [m" << '\n';
@@ -29,44 +29,62 @@ void menuprint()
 	gotoxy(20, 13); cout << "[1;32;44mשא [40mשה שה שב שש שה שה שה שב שה שה שב שה שש שה שב שה שה שב שה שש שה שש שה שב שה שש שב שה שה שה שה שה שה שש שב שו שר [36;44mשר [m" << '\n';
 	gotoxy(20, 14); cout << "[1;36;44mשד שש שש שה שש שש שש שש שה שש שש שה שש שש שש שה שש שש שה שש שש שש שש שש שה שש שש שו               שד שש שה שו [m" << '\n';
 	//------------------------------------------------------------------------------------------------------------------------------------------------
-	gotoxy(0, 18); cout << "\t      שר 	      שÝשששששששששששששששששששששששששששß"; gotoxy(71, 18);	cout<< "שששששששששÞשששששששש" << "           שר " << "     שר   שר           " << endl;
-	gotoxy(0, 19); cout << "\t      שר 	      שר שששששששששששÞשששששששששש שר";		gotoxy(71, 19);	cout<< "    שר" << "               שר " << "     שר   שר   " << endl;
-	gotoxy(0, 20); cout << "       שÝשששששששששששששבשששששששששששששß        שר      שר      שר"; gotoxy(71, 20); cout<< "    שר" << "\t         שששששבשששש" << "   שששבשששששששבשש " << endl;
-	gotoxy(0, 21); cout << "       שר      שר      שר        שר      שר      שר";			gotoxy(71, 21);cout<< "    שר" << "\t           שר      " << "שר   שר " << endl;
+	gotoxy(0, 18); cout << "\t      שר 	      שÝשששששששששששששששששששששששששששß"; gotoxy(71, 18);	cout << "שששששששששÞשששששששש" << "           שר " << "     שר   שר           " << endl;
+	gotoxy(0, 19); cout << "\t      שר 	      שר שששששששששששÞשששששששששש שר";		gotoxy(71, 19);	cout << "    שר" << "               שר " << "     שר   שר   " << endl;
+	gotoxy(0, 20); cout << "       שÝשששששששששששששבשששששששששששששß        שר      שר      שר"; gotoxy(71, 20); cout << "    שר" << "\t         שששששבשששש" << "   שששבשששששששבשש " << endl;
+	gotoxy(0, 21); cout << "       שר      שר      שר        שר      שר      שר";			gotoxy(71, 21); cout << "    שר" << "\t           שר      " << "שר   שר " << endl;
 	gotoxy(0, 22); cout << "       שר      שר      שר        שר      שר      שר";		 gotoxy(71, 22); cout << " \t\t  /שר \\" << "    שאשששששששג  " << endl;
 	gotoxy(0, 23); cout << "       שר      שר      שר        שר שששששששששששבשששששששששש שר"; gotoxy(71, 23); cout << "שששששששששששששששששש" << "         / שר  \\" << "   שר   שר  " << endl;
-	gotoxy(0, 24); cout << "       שר      שר      שר        שר      שר      שר "; gotoxy(71, 24); cout<< "\t          ¢­" << "     /  שר   \\" << "  שאשששששששג   " << endl;
-	gotoxy(0, 25); cout << "       שדשששששששששששששבשששששששששששששו        שר      שר ¢B   שר"; gotoxy(71, 25);cout<< "שששששששששבשששששששש" << "       /   שר    \\" << " שר   שר" << endl;
+	gotoxy(0, 24); cout << "       שר      שר      שר        שר      שר      שר "; gotoxy(71, 24); cout << "\t          ¢­" << "     /  שר   \\" << "  שאשששששששג   " << endl;
+	gotoxy(0, 25); cout << "       שדשששששששששששששבשששששששששששששו        שר      שר ¢B   שר"; gotoxy(71, 25); cout << "שששששששששבשששששששש" << "       /   שר    \\" << " שר   שר" << endl;
 	gotoxy(0, 26); cout << "	      שר	              שר      שר  ¢B  שר"; gotoxy(71, 26); cout << "   ¢¬שר" << "               שר     " << "שששהשששששששהשש      " << endl;
-	gotoxy(0, 27); cout << "              שר               שר שששששששששששהשששששששששש שר"; gotoxy(71, 27);cout << " ¢¬  שר" << "               שר " << "     //  \\\\   " << endl;
+	gotoxy(0, 27); cout << "              שר               שר שששששששששששהשששששששששש שר"; gotoxy(71, 27); cout << " ¢¬  שר" << "               שר " << "     //  \\\\   " << endl;
 	gotoxy(0, 28); cout << "              שר               שדשששששששששששששששששששששששששששו"; gotoxy(70, 28); cout << "¢¬    שדשששששששש" << "           שר " << "    //    \\\\    " << endl;
 	gotoxy(0, initialy - 4);	cout << "----------------------------------------------------------------------------------------------------------------------";
 	gotoxy(initialx, initialy);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);	cout << menu[0];
 	gotoxy(initialx, initialy + 1);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << menu[1];
 	gotoxy(initialx, initialy + 2); cout << menu[2];
 	gotoxy(initialx, initialy + 3);	cout << menu[3];
-	gotoxy(initialx + 62.5, initialy + 8);
+	gotoxy(117, 29);
 }
 void up_gotoxy(int num)
 {
 	COORD pointup;
-	pointup.X = initialx;  pointup.Y = initialy + num + 1;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//­ל¦לֲkֱÙ
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << menu[num + 1];
 	pointup.X = initialx;  pointup.Y = initialy + num;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//­ל¦לֲkֱÙ
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	  
+	cout << menu[num];
+	pointup.X = initialx;
+	if (num == 0)
+		pointup.Y = initialy + 3;
+	else
+		pointup.Y = initialy + num - 1;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//¨ל¦ל₪ֿ¥ױ
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << menu[num];
-	gotoxy(initialx + 62.5, initialy + 8);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);	
+	if (num == 0)
+		cout << menu[3];
+	else
+		cout << menu[num - 1];
+	gotoxy(117, 29);
 }
 void down_gotoxy(int num)
 {
 	COORD point;
-	point.X = initialx; point.Y = initialy + num - 1;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//­ל¦לֲkֱÙ
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << menu[num - 1];
 	point.X = initialx; point.Y = initialy + num;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//­ל¦לֲkֱÙ
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	cout << menu[num];
+	point.X = initialx; 	
+	if (num == 3)
+		point.Y = initialy;
+	else
+		point.Y = initialy + num + 1;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//¨ל¦ל₪ֿ¥ױ
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << menu[num];
-	gotoxy(initialx + 62.5, initialy + 8);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);	
+	if (num == 3)
+		cout << menu[0];
+	else
+		cout << menu[num + 1];
+	gotoxy(117, 29);
 }
 
