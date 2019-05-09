@@ -63,7 +63,9 @@ void ChineseChess::playGame()
 					{
 						//已選擇棋子
 						haveChose = 1;
+						gotoxy(85, 8);
 						int chessType = board.getChess() - board.getTurn() * 7;
+						board.printChess(chessType);
 						//根據棋盤上的數字，選擇對應的棋子
 						switch (chessType)
 						{
@@ -96,6 +98,7 @@ void ChineseChess::playGame()
 						chess->setx(board.getCurX());
 						chess->sety(board.getCurY());
 						chess->setCamp(board.getTurn());
+						gotoxy(board.getCurX(), board.getCurY());
 					}
 				}
 				//已選擇棋子，進行移動
@@ -128,6 +131,10 @@ void ChineseChess::playGame()
 						board.changeTurn();
 						//輸出棋局
 						board.printBoard();
+						gotoxy(85, 8);
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+						cout << "                     ";
+						gotoxy(34 + 4 * board.getCurX(), 2 + 2 * board.getCurY());
 						//判斷勝負狀態
 						if (haveWin == 1)
 						{
@@ -245,6 +252,7 @@ void ChineseChess::action()
 			playGame();
 	}
 	else if (gameMode == 2)
+
 		getManual();
 	else if (gameMode == 3)
 		exitGame();
@@ -363,19 +371,24 @@ bool ChineseChess::setPlayBoard(string file)
 									return 1;
 								}
 								//重新選擇
-								else if (input == 27)
+								else if (input == 'q')
 									break;
+								else if (input == 27)
+									return 0;
 							}
 						}
 					}
+					else if (input == 27)
+						return 0;
 				}
 			}
 		}
 	}
 	else
 	{
-		cout << "載入棋局失敗" << endl;
+		cout << "沒有舊棋局" << endl;
 		system("pause");
+		system("cls");
 		return 0;
 	}
 	inputFile.close();
@@ -402,7 +415,11 @@ void ChineseChess::getManual()
 		}
 	}
 	else
-		cout << "open manual fail" << endl;
+	{
+		cout << "規則說明檔遺失" << endl;
+		system("pause");
+		system("cls");
+	}
 	manualFile.close();
 }
 
@@ -418,8 +435,8 @@ void ChineseChess::exitGame()
 
 void ChineseChess::printBoard(void)
 {
-	int x = 51, y = 3;
-	board_basic(55, 5);
+	int x = 41, y = 3;
+	board_basic(45, 5);
 	for (int i = 0; i < 10; i++)
 	{
 		y = y + 2;	
@@ -445,7 +462,7 @@ void ChineseChess::printBoard(void)
 			case 14: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116); cout << "兵";	break; }
 			}
 		}
-		x = 51;	
+		x = 41;	
 	}
 	if (initialTurn)
 	{

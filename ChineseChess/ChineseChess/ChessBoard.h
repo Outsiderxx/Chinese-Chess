@@ -42,6 +42,7 @@ public:
 	void win(bool);
 	//д¤╣яд¤
 	bool kingMeetKing(vector<vector<int>>);
+	void printChess(int);
 private:
 	vector<vector<int>> curBoard;
 	vector<vector<vector<int>>> preBoard;

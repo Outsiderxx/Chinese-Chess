@@ -1,7 +1,7 @@
 #include "start_menu.h"
 #define initialx 54.5
 #define initialy 21
-const string menu[4] = { "開始遊戲", "讀取檔案" ,"操作說明" ,"  離開  " };			//選單const全域
+const string menu[4] = { "開始遊戲", "讀取檔案" ,"規則說明" ,"  離開  " };			//選單const全域
 
 void gotoxy(int x, int y)
 {

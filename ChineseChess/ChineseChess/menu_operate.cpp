@@ -1,12 +1,12 @@
 #include "menu_operate.h"
-#define initialx 20
+#define initialx 17
 #define initialy	 5
 
 const string word[15] = { "","將","士" ,"象" ,"車" ,"馬" ,"包" ,"卒" ,"帥" ,"仕" ,"相" ,"車" ,"傌" ,"炮" ,"兵" };
-const string fileword[10] = { " File 1 : "," File 2 : "," File 3 : "," File 4 : "," File 5 : "," File 6 : "," File 7 : "," File 8 : "," File 9 : "," File 10 : " };
+const string ChessBoardword[10] = { " ChessBoard 1 : "," ChessBoard 2 : "," ChessBoard 3 : "," ChessBoard 4 : "," ChessBoard 5 : "," ChessBoard 6 : "," ChessBoard 7 : "," ChessBoard 8 : "," ChessBoard 9 : "," ChessBoard 10 : " };
 const string escwords[6] = { "0繼續遊戲","1儲存檔案","2舉起白旗","3偷看說明","4可憐悔棋","5離開遊戲" };
 
-void load(int boardNum)						//file list
+void load(int boardNum)						//ChessBoard list
 {
 	const int row = 28, column = 117;
 	/*外框*/
@@ -27,16 +27,26 @@ void load(int boardNum)						//file list
 	for (int i = 1; i < column; i++)
 		cout << "─";
 	cout << "┘";
-	gotoxy(35, 2);
-	cout << "---------------Select your record---------------";
+	gotoxy(10, 2);
+	cout << "------Select your record------";
+	gotoxy(47, 2);
+	cout << "------Chessboard Preview------";
+	gotoxy(85, 5);
+	cout << "Press ↑↓ 選擇要預覽的棋盤";
+	gotoxy(85, 8);
+	cout << "Press Enter 預覽棋盤/進入遊戲";
+	gotoxy(85, 11);
+	cout << "Press 'q' 選擇其他棋盤";
+	gotoxy(85, 14);
+	cout << "Press Esc 回到主畫面";
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-	gotoxy(20, 5);
-	cout << " File 1 : ";
+	gotoxy(initialx, initialy);
+	cout << " ChessBoard 1";
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 	for (int i = 1; i < boardNum; i++)
 	{
-		gotoxy(20, 5 + i * 2);
-		cout << " File " << i + 1 << " : ";
+		gotoxy(initialx, initialy + i * 2);
+		cout << " ChessBoard " << i + 1;
 	}
 	gotoxy(117, 29);
 }
@@ -72,7 +82,7 @@ void load_down_gotoxy(int no ,int max)
 	point.Y = initialy + no * 2;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//原位歸還
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		
-	cout << " File " << no + 1 << " : ";
+	cout << " ChessBoard " << no + 1;
 	point.X = initialx; 
 	if (no == max)
 		point.Y = initialy;
@@ -81,9 +91,9 @@ void load_down_gotoxy(int no ,int max)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);					//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);	
 	if (no == max)
-		cout << " File 1 : ";
+		cout << " ChessBoard 1";
 	else
-		cout << " File " << no + 2 << " : ";
+		cout << " ChessBoard " << no + 2;
 	gotoxy(117, 29);
 }
 void load_up_gotoxy(int no,int max)
@@ -93,7 +103,7 @@ void load_up_gotoxy(int no,int max)
 	pointup.Y = initialy + no * 2;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		
-	cout << " File " << no + 1 << " : ";
+	cout << " ChessBoard " << no + 1;
 	pointup.X = initialx;  
 	if (no == 0)
 		pointup.Y = initialy + max * 2;
@@ -102,9 +112,9 @@ void load_up_gotoxy(int no,int max)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);	
 	if (no == 0)
-		cout << " File " << max << " : ";
+		cout << " ChessBoard " << max;
 	else
-		cout << " File " << no << " : ";
+		cout << " ChessBoard " << no;
 	gotoxy(117, 29);
 }
 
@@ -169,7 +179,7 @@ void initial_start()			//start game initial print
 	gotoxy(right + 12, 24);			cout << "←";
 	gotoxy(right + 16, 24);		cout << "→";
 	gotoxy(right + 14, 25);		cout << "↓";
-	gotoxy(right + 20, 24);		cout << "方向鍵控制游標";
+	gotoxy(right + 20, 24);		cout << "方向鍵控制游標"; 
 	//------------------------------------------------------------------------------
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
 	gotoxy(boardleft, 2);			cout << "╔ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╗ ";

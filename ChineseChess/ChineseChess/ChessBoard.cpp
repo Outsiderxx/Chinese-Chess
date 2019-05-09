@@ -5,10 +5,13 @@
 #include "menu_operate.h"
 
 //初始化棋局和下棋方
-ChessBoard::ChessBoard(vector<vector<int>> chessBoard,bool nowturn)
+ChessBoard::ChessBoard(vector<vector<int>> chessBoard,bool nowTurn)
 {
 	curX = 0;
-	curY = 0;
+	if (nowTurn == 0)
+		curY = 0;
+	else
+		curY = 9;
 	curBoard.resize(10);
 	for (int i = 0; i < 10; i++)
 	{
@@ -21,7 +24,7 @@ ChessBoard::ChessBoard(vector<vector<int>> chessBoard,bool nowturn)
 			curBoard[i][j] = chessBoard[i][j];
 		}
 	}
-	turn = nowturn;
+	turn = nowTurn;
 }
 
 //取得當前座標棋子種類
@@ -168,7 +171,14 @@ void ChessBoard::regret(void)
 	else
 	{
 		gotoxy(90, 8);
-		cout << "無法悔棋" << endl;
+		cout << "無法悔棋";
+		gotoxy(85, 9);
+		system("pause");
+		gotoxy(90, 8);
+		cout << "            ";
+		gotoxy(85, 9);
+		cout << "                     ";
+		gotoxy(34 + 4 * curX, 2 + 2 * curY);
 	}
 }
 
@@ -334,4 +344,22 @@ bool ChessBoard::kingMeetKing(vector<vector<int>> board)	//king meet king
 		return 1;
 	}
 	return 0;
+}
+
+void ChessBoard::printChess(int chessType)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	const string chessName[15] = { "","將","士" ,"象" ,"車" ,"馬" ,"包" ,"卒" ,"帥" ,"仕" ,"相" ,"車" ,"傌" ,"炮" ,"兵" };
+	if (!turn)
+	{
+		cout << "當前選擇的棋子是 ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);
+		cout << chessName[chessType];
+	}
+	else
+	{
+		cout << "當前選擇的棋子是 ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);
+		cout << chessName[chessType + 7];
+	}
 }
