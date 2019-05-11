@@ -9,7 +9,7 @@ public:
 	//初始化棋盤
 	ChessBoard(vector<vector<int>>,bool);
 	//取得當前座標棋子
-	int getChess(void);
+	int getChess(int,int);
 	//取得當前下棋方
 	bool getTurn(void);
 	//改變下棋方
@@ -20,8 +20,6 @@ public:
 	int getCurY(void);
 	//移動座標
 	void changeCoordinate(void);
-	//選擇要移動的旗子
-	bool chooseChess(chessBasic*);
 	//遊戲中按ESC叫出菜單
 	int menu(void);
 	//移動棋子
@@ -42,7 +40,10 @@ public:
 	void win(bool);
 	//王對王
 	bool kingMeetKing(vector<vector<int>>);
+	//顯示當前選擇棋子
 	void printChess(int);
+	//戰況顯示
+	void printStatus(int,int);
 private:
 	vector<vector<int>> curBoard;
 	vector<vector<vector<int>>> preBoard;

@@ -1,2 +1,3 @@
 ﻿  ChessBoard.cpp
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chessboard.cpp(254): warning C4018: '<': signed/unsigned 不相符
   ChineseChess.vcxproj -> D:\My file\Github\Chinese-chess\ChineseChess\Debug\ChineseChess.exe

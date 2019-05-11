@@ -164,16 +164,12 @@ void initial_start()			//start game initial print
 	gotoxy(right + 10, 4);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE | FOREGROUND_GREEN);	cout << "現在輪到　";
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-	/*if (temp[90] == 1)
-		cout << "紅色方";
-	else
-		cout << "黑色方";*/
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE | FOREGROUND_GREEN);	cout << "          下棋";
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	gotoxy(7, 1);		cout << "　戰　況　顯　示　";
 	gotoxy(boardleft, 1);		cout << "１  ２  ３  ４  ５  ６　７　８　９";
 	gotoxy(boardleft, row - 7);		cout << "九　八　七　六　五　四　三　二　一";			//---------------------(34,21)
-	gotoxy(right + 9, 18);			cout << "Esc 選單";		gotoxy(right + 21, 18);		cout << "< 悔棋";	gotoxy(right + 31, 18);		cout << "> 還原";
+	gotoxy(right + 9, 18);			cout << "按Esc : 在棋盤下方召喚選單";	
 	gotoxy(right + 8, 21);			cout << "Enter  選取棋子   q  取消選棋";
 	gotoxy(right + 14, 23);		cout << "↑";
 	gotoxy(right + 12, 24);			cout << "←";
@@ -181,54 +177,35 @@ void initial_start()			//start game initial print
 	gotoxy(right + 14, 25);		cout << "↓";
 	gotoxy(right + 20, 24);		cout << "方向鍵控制游標"; 
 	//------------------------------------------------------------------------------
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-	gotoxy(boardleft, 2);			cout << "╔ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╤ ═ ╗ ";
-	gotoxy(boardleft, 3);			cout << "│ 　│ 　│   │ ╲ │ ╱ │ 　│ 　│ 　│ ";
-	gotoxy(boardleft, 4);			cout << "│ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ │ ";
-	gotoxy(boardleft, 5);			cout << "│ 　│ 　│   │ ╱ │ ╲ │ 　│ 　│ 　│ ";
-	gotoxy(boardleft, 6);			cout << "│ ─ ╬ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ╬ ─ │ ";
-	gotoxy(boardleft, 7);			cout << "│ 　│　 │　 │　 │　 │ 　│ 　│　 │ ";
-	gotoxy(boardleft, 8);			cout << "│ ─ ┼ ─ ╬ ─ ┼ ─ ╬ ─ ┼ ─ ╬ ─ ┼ ─ │ ";
-	gotoxy(boardleft, 9);			cout << "│ 　│　 │　 │　 │　 │ 　│ 　│　 │ ";
-	gotoxy(boardleft, 10);		cout << "│ ─ ┴ ─ ┴ ─ ┴ ─ ┴ ─ ┴ ─ ┴ ─ ┴ ─ │ ";
-	gotoxy(boardleft, 11);		cout << "│　　 　楚河　　　　　漢界　  　│ ";
-	gotoxy(boardleft, 12);		cout << "│ ─ ┬ ─ ┬ ─ ┬ ─ ┬ ─ ┬ ─ ┬ ─ ┬ ─ │ ";
-	gotoxy(boardleft, 13);		cout << "│ 　│　 │　 │　 │　 │ 　│ 　│　 │ ";
-	gotoxy(boardleft, 14);		cout << "│ ─ ┼ ─ ╬ ─ ┼ ─ ╬ ─ ┼ ─ ╬ ─ ┼ ─ │ ";
-	gotoxy(boardleft, 15);		cout << "│ 　│　 │　 │　 │　 │ 　│ 　│　 │ ";
-	gotoxy(boardleft, 16);		cout << "│ ─ ╬ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ╬ ─ │ ";
-	gotoxy(boardleft, 17);		cout << "│ 　│ 　│   │ ╲ │ ╱ │ 　│ 　│ 　│ ";
-	gotoxy(boardleft, 18);		cout << "│ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ ┼ ─ │ ";
-	gotoxy(boardleft, 19);		cout << "│ 　│ 　│   │ ╱ │ ╲ │ 　│ 　│ 　│ ";
-	gotoxy(boardleft, 20);		cout << "╚ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╧ ═ ╝ ";
+	board_basic(34, 2);
 	gotoxy(boardleft, row - 8);
 }
 
 void replay_left_gotoxy()
 {
 	COORD pointup;
-	pointup.X = 94;  pointup.Y = 13;
+	pointup.X = 94;  pointup.Y = 7;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "否(回主畫面)";
-	pointup.X = 90;  pointup.Y = 13;
+	pointup.X = 90;  pointup.Y = 7;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "是";
-	gotoxy(92, 13);
+	gotoxy(117, 29);
 }
 void replay_right_gotoxy()
 {
 	COORD pointup;
-	pointup.X = 90;  pointup.Y = 13;
+	pointup.X = 90;  pointup.Y = 7;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "是";
-	pointup.X = 94;  pointup.Y = 13;
+	pointup.X = 94;  pointup.Y = 7;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "否(回主畫面)";
-	gotoxy(106, 13);
+	gotoxy(117, 29);
 }
 void escmenu()
 {
-	gotoxy(32, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		cout << "0繼續遊戲";
+	gotoxy(32, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);		    cout << "0繼續遊戲";
 	gotoxy(46, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "1儲存檔案";
 	gotoxy(60, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "2舉起白旗";
 	gotoxy(32, 25);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);			cout << "3偷看說明";
