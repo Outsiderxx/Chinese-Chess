@@ -25,7 +25,6 @@ void ChineseChess::playGame()
 	initial_start();
 	//是否已選棋
 	bool haveChose = 0;
-	bool chooseKing = 0;
 	gotoxy(34, 20);
 	//儲存棋盤
 	board.saveBoard();
@@ -71,7 +70,6 @@ void ChineseChess::playGame()
 						{
 						case 1:
 							chess = &kingChess;
-							chooseKing = 1;
 							break;
 						case 2:
 							chess = &counselorChess;
@@ -112,19 +110,14 @@ void ChineseChess::playGame()
 						board.printStatus(chess->getx(),chess->gety());
 						//進行移動
 						haveWin = board.move(chess);
-						//選擇棋子是否為將或帥
-						if (chooseKing)
+						//是否有王對王情況出現
+						if (board.kingMeetKing(board.getBoard()))
 						{
-							//是否有王對王情況出現
-							if (board.kingMeetKing(board.getBoard()))
-							{
-								//王對王出現時，對方勝利
-								if (board.getTurn())
-									haveWin = 1;
-								else
-									haveWin = 2;
-							}
-							chooseKing = 0;
+							//王對王出現時，對方勝利
+							if (board.getTurn())
+								haveWin = 1;
+							else
+								haveWin = 2;
 						}
 						//改變選棋狀態
 						haveChose = 0;

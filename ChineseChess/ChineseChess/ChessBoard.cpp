@@ -484,7 +484,7 @@ void ChessBoard::printStatus(int chessX, int chessY)
 		if (chessType == 8 || chessType == 11 || chessType == 13 || chessType == 14)
 		{
 			if (moveY == 0)
-				cout << number[9 - curX];
+				cout << number[8 - curX];
 			else
 			{
 				if (moveY < 0)
