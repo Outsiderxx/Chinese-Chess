@@ -28,9 +28,9 @@ ChessBoard::ChessBoard(vector<vector<int>> chessBoard,bool nowTurn)
 }
 
 //取得當前座標棋子種類
-int ChessBoard::getChess(void)
+int ChessBoard::getChess(int coorY,int coorX)
 {
-	return curBoard[curY][curX];
+	return curBoard[coorY][coorX];
 }
 
 //取得下棋方
@@ -139,9 +139,9 @@ int ChessBoard::menu(void)
 int ChessBoard::move(chessBasic* curChess)
 {
 	int returnValue;
-	if (getChess() == 1)
+	if (getChess(curY, curX) == 1)
 		returnValue = 2;
-	else if(getChess() == 8)
+	else if(getChess(curY, curX) == 8)
 		returnValue = 1;
 	else
 		returnValue = 0;
@@ -163,6 +163,30 @@ void ChessBoard::regret(void)
 {
 	if (preBoard.size() > 2)
 	{
+		if (preBoard.size() % 12 == 2)
+		{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+			gotoxy(6, 3);
+			cout << "                   ";
+			gotoxy(6, 3 + 2 * 11);
+			cout << "                   ";
+		}
+		else if (preBoard.size() % 12 == 1)
+		{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+			gotoxy(6, 3 + 2 * 10);
+			cout << "                   ";
+			gotoxy(6, 3 + 2 * 11);
+			cout << "                   ";
+		}
+		else
+		{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+			gotoxy(6, 3 + (preBoard.size() % 12 - 2) * 2);
+			cout << "                   ";
+			gotoxy(6, 3 + (preBoard.size() % 12 - 2) * 2 - 2);
+			cout << "                   ";
+		}
 		curBoard = preBoard[preBoard.size() - 3];
 		printBoard();
 		preBoard.pop_back();
@@ -170,10 +194,14 @@ void ChessBoard::regret(void)
 	}
 	else
 	{
-		gotoxy(90, 8);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 244);		cout << "無法悔棋";
-		gotoxy(85, 9);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 244);		system("pause");
-		gotoxy(90, 8);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "            ";
-		gotoxy(85, 9);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "                     ";
+		gotoxy(90, 8);
+		cout << "無法悔棋";
+		gotoxy(85, 9);
+		system("pause");
+		gotoxy(90, 8);
+		cout << "            ";
+		gotoxy(85, 9);
+		cout << "                     ";
 		gotoxy(34 + 4 * curX, 2 + 2 * curY);
 	}
 }
@@ -181,16 +209,60 @@ void ChessBoard::regret(void)
 //存檔
 void ChessBoard::saveFile(void)
 {
-	ofstream output("oldBoard.txt",ios::app);
+	vector<vector<vector<int>>> allBoard;
+	vector<vector<int>> tmpBoard;
+	vector<bool> allTurn;
+	bool tmpTurn;
+	ifstream inputFile("oldBoard.txt");
+	tmpBoard.resize(10);
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 9; j++)
-		{
-			output << curBoard[i][j] << " ";
-		}
-		output << endl;
+		tmpBoard[i].resize(9);
 	}
-	output << turn << endl;
+	while (true)
+	{
+		//將檔案內容讀取到vector
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				inputFile >> tmpBoard[i][j];
+			}
+		}
+		inputFile >> tmpTurn;
+		if (inputFile.eof())
+			break;
+		allBoard.push_back(tmpBoard);
+		allTurn.push_back(tmpTurn);
+	}
+	inputFile.close();
+	tmpBoard = curBoard;
+	tmpTurn = turn;
+	if (allBoard.size() == 10)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			allBoard[i] = allBoard[i + 1];
+			allTurn[i] = allTurn[i + 1];
+		}
+		allBoard.pop_back();
+		allTurn.pop_back();
+	}
+	allBoard.push_back(tmpBoard);
+	allTurn.push_back(tmpTurn);
+	ofstream outputFile("oldBoard.txt");
+	for (int k = 0; k < allBoard.size(); k++)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			for(int j=0;j<9;j++)
+			{
+				outputFile << allBoard[k][i][j] << " ";
+			}
+			outputFile << endl;
+		}
+		outputFile << allTurn[k] << endl;
+	}
 }
 
 vector<vector<int>> ChessBoard::getBoard(void)
@@ -245,7 +317,6 @@ void ChessBoard::replay(void)
 {
 	curBoard = preBoard[0];
 	printBoard();
-	gotoxy(88, 13); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4); cout << "                       ";
 	gotoxy(82, 4);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);	 cout << "                           ";
 	gotoxy(85, 8);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);	 cout << "~~~~~~重播中~~~~~~";
 	gotoxy(85, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);	 cout << "~~~按enter播下一手~~~";
@@ -281,38 +352,54 @@ void ChessBoard::win(bool whoWin)
 	if (!whoWin)
 	{
 		gotoxy(82, 4); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);	cout << "                             ";
-		gotoxy(87, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);	cout << "黑方勝 ! ! ! ! !";
-		gotoxy(88, 13);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);	cout << "是";
-		gotoxy(92, 13);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << "否(回主畫面)"; gotoxy(117, 29);
+		gotoxy(87, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);	cout << "黑方勝 ! ! !" ;
 	}
 	else
 	{
 		gotoxy(82, 4); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);	cout << "                             ";
-		gotoxy(87, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);	cout << "紅方勝 ! ! ! ! !";
-		gotoxy(88, 13);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);	cout << "是";
-		gotoxy(92, 13);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << "否(回主畫面)"; gotoxy(117, 29);
+		gotoxy(87, 10);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);	cout << "紅方勝 ! ! !" ;
 	}
+	gotoxy(82, 11);
+	system("pause");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	gotoxy(82, 11);
+	cout << "                         ";
+	gotoxy(87, 10);
+	cout << "                        ";
+	gotoxy(80, 5);
+	cout << " 是否要觀看重播 ";
 	bool replayFlag = 1;
+	gotoxy(94, 7);
+	cout << "否(回主畫面)";
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
+	gotoxy(90, 7);
+	cout << "是";
+	gotoxy(117, 29);
 	while (true)
 	{
 		if (_kbhit())
 		{
 			int input = _getch();
-			 if (input == 75)
+			if (input == 224)
 			{
-				 replayFlag = 1;
-				replay_left_gotoxy();
-			}
-			else	if (input == 77)
-			{
-				 replayFlag = 0;
-				replay_right_gotoxy();
+				input = _getch();
+				if (input == 75)
+					replay_left_gotoxy();
+				else if (input == 77)
+					replay_right_gotoxy();
+				replayFlag = 1 - replayFlag;
 			}
 			else if (input == 13)
 			{
 				if (replayFlag)
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+					gotoxy(80, 5);
+					cout << "                ";
+					gotoxy(90, 7);
+					cout << "                   ";
 					replay();
-				replayFlag = 0;
+				}
 				break;
 			}
 		}
@@ -368,5 +455,98 @@ void ChessBoard::printChess(int chessType)
 		cout << "當前選擇的棋子是 ";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);
 		cout << chessName[chessType + 7];
+	}
+}
+
+void ChessBoard::printStatus(int chessX, int chessY)
+{
+	int moveY = curY - chessY, chessType = getChess(chessY, chessX);
+	const string number[10] = { "一","二","三","四","五","六","七","八","九" };
+	const string chessName[15] = { "","將","士" ,"象" ,"車" ,"馬" ,"包" ,"卒" ,"帥" ,"仕" ,"相" ,"車" ,"傌" ,"炮" ,"兵" };
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	if (preBoard.size() % 12 == 0)
+		gotoxy(6, 3 + 2 * 11);
+	else
+		gotoxy(6, 3 + 2 * (preBoard.size() % 12 - 1));
+	cout << preBoard.size() << " ";
+	if (turn)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 116);
+		cout << "紅";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		cout << " : " << chessName[chessType] << " " << number[8 - chessX];
+		if (moveY < 0)
+			cout << " 進 ";
+		else if (moveY == 0)
+			cout << " 平 ";
+		else
+			cout << " 退 ";
+		if (chessType == 8 || chessType == 11 || chessType == 13 || chessType == 14)
+		{
+			if (moveY == 0)
+				cout << number[8 - curX];
+			else
+			{
+				if (moveY < 0)
+					moveY *= -1;
+				cout << number[moveY - 1];
+			}
+		}
+		else
+			cout << number[8 - curX];
+	}
+	else
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);
+		cout << "黑";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		cout << " : " << chessName[chessType] << "  " << chessX + 1;
+		if (moveY > 0)
+			cout << " 進  ";
+		else if (moveY == 0)
+			cout << " 平  ";
+		else
+			cout << " 退  ";
+		if (chessType == 1 || chessType == 4 || chessType == 6 || chessType == 7)
+		{
+			if (moveY == 0)
+				cout << curX + 1;
+			else
+			{
+				if (moveY < 0)
+					moveY *= -1;
+				cout << moveY;
+			}
+		}
+		else
+			cout << curX + 1;
+	}
+}
+void ChessBoard::sethintBoard(vector<vector<bool>> returned)
+{
+	hintBoard = returned;
+}
+vector<vector<bool>>ChessBoard::gethintBoard()
+{
+	return hintBoard;
+}
+void ChessBoard::printHint(vector<vector<bool>>hints)
+{
+	int x = 30, y = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		y = y + 2;
+		gotoxy(x, y);
+		for (int j = 0; j < 9; j++)
+		{
+			x = x + 4;
+			gotoxy(x, y);
+			if (hints[i][j] == 1)
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);	cout << "  ";
+			}	
+		}
+		cout << endl;
+		x = 30;
 	}
 }

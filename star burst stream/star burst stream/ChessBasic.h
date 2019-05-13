@@ -12,6 +12,7 @@ public:
 	void setCamp(bool);
 	bool getCamp();
 	virtual bool isMovable(int, int, vector<vector<int>>) = 0;
+	virtual vector<vector<bool>> hint(int, int, vector<vector<int>>) = 0;
 private:
 	int x, y;
 	bool camp;

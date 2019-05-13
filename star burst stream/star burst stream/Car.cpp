@@ -116,3 +116,98 @@ bool Car::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 		return 0;
 	}
 }
+
+vector<vector<bool>> Car::hint(int nowx, int nowy, vector<vector<int>> board)
+{
+	// initial the hint board
+	vector<bool> zeroRows;
+	vector<vector<bool>> hint_board;
+	bool tempBool = false;
+	for (int i = 0; i < 9; ++i)
+	{
+		zeroRows.push_back(tempBool);
+	}
+	for (int i = 0; i < 10; ++i)
+	{
+		hint_board.push_back(zeroRows);
+	}
+	//--------------------------------------
+	bool obstacle = false;
+	for (int i = nowx - 1; i >= 0; --i) // go left
+	{
+		if (board[nowy][i] == 0)
+		{
+			hint_board[nowy][i] = true;
+		}
+		else
+		{
+			if (board[nowy][i] >= 1 && board[nowy][i] <= 7)
+			{
+				hint_board[nowy][i] = getCamp() ? true : false;
+			}
+			else if (board[nowy][i] >= 8 && board[nowy][i] <= 14)
+			{
+				hint_board[nowy][i] = getCamp() ? false : true;
+			}
+			break;
+		}
+	}
+	for (int i = nowx + 1; i <= 8; ++i) // go right
+	{
+		if (board[nowy][i] == 0)
+		{
+			hint_board[nowy][i] = true;
+		}
+		else
+		{
+			if (board[nowy][i] >= 1 && board[nowy][i] <= 7)
+			{
+				hint_board[nowy][i] = getCamp() ? true : false;
+			}
+			else if (board[nowy][i] >= 8 && board[nowy][i] <= 14)
+			{
+				hint_board[nowy][i] = getCamp() ? false : true;
+			}
+			break;
+		}
+	}
+	for (int i = nowy - 1; i >= 0; --i) // go up
+	{
+		if (board[i][nowx] == 0)
+		{
+			hint_board[i][nowx] = true;
+		}
+		else
+		{
+			if (board[i][nowx] >= 1 && board[i][nowx] <= 7)
+			{
+				hint_board[i][nowx] = getCamp() ? true : false;
+			}
+			else if (board[i][nowx] >= 8 && board[i][nowx] <= 14)
+			{
+				hint_board[i][nowx] = getCamp() ? false : true;
+			}
+			break;
+		}
+	}
+	for (int i = nowy + 1; i <= 9; ++i) // go down
+	{
+		if (board[i][nowx] == 0)
+		{
+			hint_board[i][nowx] = true;
+		}
+		else
+		{
+			if (board[i][nowx] >= 1 && board[i][nowx] <= 7)
+			{
+				hint_board[i][nowx] = getCamp() ? true : false;
+			}
+			else if (board[i][nowx] >= 8 && board[i][nowx] <= 14)
+			{
+				hint_board[i][nowx] = getCamp() ? false : true;
+			}
+			break;
+		}
+	}
+	return hint_board;
+}

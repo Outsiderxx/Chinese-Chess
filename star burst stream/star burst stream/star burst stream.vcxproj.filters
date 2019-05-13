@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bubble.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="Car.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
@@ -51,11 +48,11 @@
     <ClInclude Include="start_menu.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Bubble.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bubble.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
     <ClCompile Include="Car.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
@@ -90,6 +87,9 @@
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="strart_menu.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Bubble.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>
