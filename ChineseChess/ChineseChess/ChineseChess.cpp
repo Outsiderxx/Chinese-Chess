@@ -374,7 +374,11 @@ bool ChineseChess::setPlayBoard(string file)
 								}
 								//­«·s¿ï¾Ü
 								else if (input == 'q')
+								{
+									for (int j = 5; j < 24; j++) { gotoxy(45, j);	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << "                                     "; }
+									gotoxy(117, 29);
 									break;
+								}
 								else if (input == 27)
 									return 0;
 							}

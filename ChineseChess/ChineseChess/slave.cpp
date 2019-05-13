@@ -50,3 +50,100 @@ bool slave::isMovable(int dest_x, int dest_y, vector< vector<int> > board)
 		return 1;
 	}
 }
+
+vector<vector<bool>> slave::hint(int nowx, int nowy, vector<vector<int>> board)
+{
+	// initial the hint board
+	vector<bool> zeroRows;
+	vector<vector<bool>> hint_board;
+	bool tempBool = false;
+	for (int i = 0; i < 9; ++i)
+	{
+		zeroRows.push_back(tempBool);
+	}
+	for (int i = 0; i < 10; ++i)
+	{
+		hint_board.push_back(zeroRows);
+	}
+	//--------------------------------------
+	bool passRiverOrNot = false;
+	if (!getCamp())		//black
+	{
+		if (nowy >= 5) passRiverOrNot = true;
+		if (nowy < 9)
+		{
+			if (!(board[nowy + 1][nowx] >= 1 && board[nowy + 1][nowx] <= 7))
+			{
+				hint_board[nowy + 1][nowx] = true;
+			}
+		}
+		if (passRiverOrNot)
+		{
+			if (nowx == 0)
+			{
+				if (!(board[nowy][nowx + 1] >= 1 && board[nowy][nowx + 1] <= 7))
+				{
+					hint_board[nowy][nowx + 1] = true;
+				}
+			}
+			else if (nowx == 8)
+			{
+				if (!(board[nowy][nowx - 1] >= 1 && board[nowy][nowx - 1] <= 7))
+				{
+					hint_board[nowy][nowx + 1] = true;
+				}
+			}
+			else if (nowx > 0 && nowx < 8)
+			{
+				if (!(board[nowy][nowx + 1] >= 1 && board[nowy][nowx + 1] <= 7))
+				{
+					hint_board[nowy][nowx + 1] = true;
+				}
+				if (!(board[nowy][nowx - 1] >= 1 && board[nowy][nowx - 1] <= 7))
+				{
+					hint_board[nowy][nowx - 1] = true;
+				}
+			}
+		}
+	}
+	else				//red
+	{
+		if (nowy <= 4) passRiverOrNot = true;
+		if (nowy > 0)
+		{
+			if (!(board[nowy - 1][nowx] >= 8 && board[nowy - 1][nowx] <= 14))
+			{
+				hint_board[nowy - 1][nowx] = true;
+			}
+		}
+		if (passRiverOrNot)
+		{
+			if (nowx == 0)
+			{
+				if (!(board[nowy][nowx + 1] >= 8 && board[nowy][nowx + 1] <= 14))
+				{
+					hint_board[nowy][nowx + 1] = true;
+				}
+			}
+			else if (nowx == 8)
+			{
+				if (!(board[nowy][nowx - 1] >= 8 && board[nowy][nowx - 1] <= 14))
+				{
+					hint_board[nowy][nowx - 1] = true;
+				}
+			}
+			else if (nowx > 0 && nowx < 8)
+			{
+				if (!(board[nowy][nowx + 1] >= 8 && board[nowy][nowx + 1] <= 14))
+				{
+					hint_board[nowy][nowx + 1] = true;
+				}
+				if (!(board[nowy][nowx - 1] >= 8 && board[nowy][nowx - 1] <= 14))
+				{
+					hint_board[nowy][nowx - 1] = true;
+				}
+			}
+		}
+	}
+	return hint_board;
+}

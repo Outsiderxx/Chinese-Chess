@@ -1,3 +1,7 @@
-﻿  ChessBoard.cpp
-d:\my file\github\chinese-chess\chinesechess\chinesechess\chessboard.cpp(254): warning C4018: '<': signed/unsigned 不相符
+﻿  Bubble.cpp
+  Car.cpp
+  slave.cpp
+  正在產生程式碼...
+d:\my file\github\chinese-chess\chinesechess\chinesechess\car.cpp(118): warning C4715: 'Car::isMovable': 不是所有控制路徑都傳回值
+d:\my file\github\chinese-chess\chinesechess\chinesechess\bubble.cpp(146): warning C4715: 'bubble::isMovable': 不是所有控制路徑都傳回值
   ChineseChess.vcxproj -> D:\My file\Github\Chinese-chess\ChineseChess\Debug\ChineseChess.exe

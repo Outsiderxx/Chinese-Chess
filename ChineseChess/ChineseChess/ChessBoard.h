@@ -46,7 +46,7 @@ public:
 	void printStatus(int,int);
 private:
 	vector<vector<int>> curBoard;
-	vector<vector<vector<int>>> preBoard;
+ 	vector<vector<vector<int>>> preBoard;
 	bool turn;
 	int curX, curY;
 };
