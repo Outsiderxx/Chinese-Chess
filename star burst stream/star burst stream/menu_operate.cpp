@@ -184,24 +184,24 @@ void initial_start()			//start game initial print
 void replay_left_gotoxy()
 {
 	COORD pointup;
-	pointup.X = 94;  pointup.Y = 13;
+	pointup.X = 92;  pointup.Y = 13;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "否(回主畫面)";
-	pointup.X = 90;  pointup.Y = 13;
+	pointup.X = 88;  pointup.Y = 13;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "是";
-	gotoxy(92, 13);
+	gotoxy(117, 29);
 }
 void replay_right_gotoxy()
 {
 	COORD pointup;
-	pointup.X = 90;  pointup.Y = 13;
+	pointup.X = 88;  pointup.Y = 13;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//原位歸還
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		cout << "是";
-	pointup.X = 94;  pointup.Y = 13;
+	pointup.X = 92;  pointup.Y = 13;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pointup);			//到位反白
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 113);		cout << "否(回主畫面)";
-	gotoxy(106, 13);
+	gotoxy(117, 29);
 }
 void escmenu()
 {

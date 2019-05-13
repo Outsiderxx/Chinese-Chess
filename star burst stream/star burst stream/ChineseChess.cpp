@@ -358,6 +358,7 @@ bool ChineseChess::setPlayBoard(string file)
 						initialPlayBoard = allBoard[index];
 						initialTurn = allTurn[index];
 						printBoard();
+						gotoxy(117, 29);
 						while (true)
 						{
 							if (_kbhit())
@@ -436,6 +437,7 @@ void ChineseChess::getManual()
 //post:¿é¥X°T®§¨ÃÂ÷¶}¹CÀ¸
 void ChineseChess::exitGame()
 {
+	system("cls");
 	system("color 07");
 	gotoxy(28, 7);	cout << "      [33m                          ¢­ ¡þ                       [37m       " ;
 	gotoxy(28, 8);		cout << "    [1m                 ¢¨¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i                 [m   " ;
