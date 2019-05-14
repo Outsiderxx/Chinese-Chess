@@ -51,7 +51,7 @@ public:
 private:
 	vector<vector<int>> curBoard;
  	vector<vector<vector<int>>> preBoard;
-	vector<vector<bool>> hintBoard = { {0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0} };
+	vector<vector<bool>> hintBoard;
 	bool turn;
 	int curX, curY;
 };

@@ -5,7 +5,9 @@ bool slave::isMovable(int dest_x, int dest_y, vector< vector<int> > board)
 	bool passRiverOrNot = false;
 	int nowx = getx();
 	int nowy = gety();
-
+	int difx = dest_x > nowx ? (dest_x - nowx) : (nowx - dest_x);
+	int dify = dest_y > nowy ? (dest_y - nowy) : (nowy - dest_y);
+	if (difx + dify >= 2) return 0;
 	if (dest_x == nowx && dest_y == nowy) //move to the original position.
 	{
 		//move again.

@@ -543,7 +543,25 @@ void ChessBoard::printHint(vector<vector<bool>>hints)
 			gotoxy(x, y);
 			if (hints[i][j] == 1)
 			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);	cout << "  ";
+				switch (getChess(i, j))
+				{
+				case 0 :{SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);	cout << "  ";break; }
+				case 1: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "將";	break; }
+				case 2: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "士";	break; }
+				case 3: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "象";	break; }
+				case 4: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "車";	break; }
+				case 5: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "馬";	break; }
+				case 6: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "包";	break; }
+				case 7: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "卒";	break; }
+				case 8: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "帥";	break; }
+				case 9: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "仕";	break; }
+				case 10: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "相";	break; }
+				case 11: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "車";	break; }
+				case 12: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "傌";	break; }
+				case 13: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "炮";	break; }
+				case 14: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "兵";	break; }
+
+				}
 			}	
 		}
 		cout << endl;

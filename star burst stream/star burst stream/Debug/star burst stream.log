@@ -1,2 +1,5 @@
-﻿  ChineseChess.cpp
+﻿  Bubble.cpp
+  slave.cpp
+  正在產生程式碼...
+c:\users\gl63\desktop\star burst stream\star burst stream\bubble.cpp(162): warning C4715: 'bubble::isMovable': 不是所有控制路徑都傳回值
   star burst stream.vcxproj -> C:\Users\GL63\Desktop\star burst stream\Debug\star burst stream.exe

@@ -179,11 +179,11 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 	int obstacleCnt = 0;
 	for (int i = nowx - 1; i >= 0; --i) // go left
 	{
-		if (board[nowy][i] == 0)
+		if (board[nowy][i] == 0 && obstacleCnt == 0)
 		{
 			hint_board[nowy][i] = true;
 		}
-		else
+		else if(board[nowy][i] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -196,18 +196,18 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[nowy][i] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	for (int i = nowx + 1; i <= 8; ++i) // go right
 	{
-		if (board[nowy][i] == 0)
+		if (board[nowy][i] == 0 && obstacleCnt == 0)
 		{
 			hint_board[nowy][i] = true;
 		}
-		else
+		else if (board[nowy][i] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -220,18 +220,18 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[nowy][i] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	for (int i = nowy - 1; i >= 0; --i) // go up
 	{
-		if (board[i][nowx] == 0)
+		if (board[i][nowx] == 0 && obstacleCnt == 0)
 		{
 			hint_board[i][nowx] = true;
 		}
-		else
+		else if (board[i][nowx] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -244,18 +244,18 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[i][nowx] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	for (int i = nowy + 1; i <= 9; ++i) // go down
 	{
-		if (board[i][nowx] == 0)
+		if (board[i][nowx] == 0 && obstacleCnt == 0)
 		{
 			hint_board[i][nowx] = true;
 		}
-		else
+		else if (board[i][nowx] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -268,10 +268,10 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[i][nowx] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	return hint_board;
 }

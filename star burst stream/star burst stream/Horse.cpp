@@ -86,18 +86,17 @@ bool Horse::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 	}
 	return 0;
 }
-
-vector<vector<bool>> Horse::hint(int nowx, int nowy, vector<vector<int> >board)
+vector<vector<bool> > Horse::hint(int nowx, int nowy, vector<vector<int> >board)
 {
 	vector<vector<bool> >anotherBoard;
-	anotherBoard.resize(9);
-	for (int loop = 0; loop < 9; loop++)
+	anotherBoard.resize(10);
+	for (int loop = 0; loop < 10; loop++)
 	{
-		anotherBoard[loop].resize(10);
+		anotherBoard[loop].resize(9);
 	}
-	for (int loop = 0; loop < 9; loop++)
+	for (int loop = 0; loop < 10; loop++)
 	{
-		for (int loop1 = 0; loop1 < 10; loop1++)
+		for (int loop1 = 0; loop1 < 9; loop1++)
 		{
 			anotherBoard[loop][loop1] = 0;
 		}

@@ -77,19 +77,35 @@ bool King::isMovable(int dest_x, int dest_y, vector<vector<int> > board)
 		}
 		return 1;
 	}
+	return 0;
 }
 
+bool King::kingMeetKing(King& enemyKing, vector<vector<int> > board)	//king meet king
+{
+	if (getx() == enemyKing.getx())
+	{
+		for (int loop = gety() > enemyKing.gety() ? enemyKing.gety() + 1 : gety() + 1; loop < gety() > enemyKing.gety() ? gety() : enemyKing.gety(); loop++)
+		{
+			if (board[loop][getx()] != 0)
+			{
+				return 0;
+			}
+		}
+		return 1;
+	}
+	return 0;
+}
 vector<vector<bool> > King::hint(int nowx, int nowy, vector<vector<int> > board)
 {
-	vector<vector<bool>> anotherBoard;
-	anotherBoard.resize(9);
-	for (int loop = 0; loop < 9; loop++)
+	vector<vector<bool> >anotherBoard;
+	anotherBoard.resize(10);
+	for (int loop = 0; loop < 10; loop++)
 	{
-		anotherBoard[loop].resize(10);
+		anotherBoard[loop].resize(9);
 	}
-	for (int loop = 0; loop < 9; loop++)
+	for (int loop = 0; loop < 10; loop++)
 	{
-		for (int loop1 = 0; loop1 < 10; loop1++)
+		for (int loop1 = 0; loop1 < 9; loop1++)
 		{
 			anotherBoard[loop][loop1] = 0;
 		}
@@ -163,4 +179,5 @@ vector<vector<bool> > King::hint(int nowx, int nowy, vector<vector<int> > board)
 		}
 	}
 	return anotherBoard;
+
 }
