@@ -1,5 +1,5 @@
-﻿  Bubble.cpp
-  slave.cpp
+﻿  Elephant.cpp
+  King.cpp
+c:\users\gl63\documents\github\chinese-chess\star burst stream\star burst stream\king.cpp(87): warning C4804: '>': 作業中不安全的使用類型 'bool'
   正在產生程式碼...
-c:\users\gl63\desktop\star burst stream\star burst stream\bubble.cpp(162): warning C4715: 'bubble::isMovable': 不是所有控制路徑都傳回值
-  star burst stream.vcxproj -> C:\Users\GL63\Desktop\star burst stream\Debug\star burst stream.exe
+  star burst stream.vcxproj -> C:\Users\GL63\Documents\GitHub\Chinese-chess\star burst stream\Debug\star burst stream.exe
