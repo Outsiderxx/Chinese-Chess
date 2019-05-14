@@ -110,7 +110,7 @@ vector<vector<bool> > King::hint(int nowx, int nowy, vector<vector<int> > board)
 			anotherBoard[loop][loop1] = 0;
 		}
 	}
-	if (nowx + 1 < 5)							//right side
+	if (nowx + 1 <= 5)							//right side
 	{
 		if (board[nowy][nowx + 1] != 0 && !getCamp() && board[nowy][nowx + 1] <= 7)
 		{
@@ -125,7 +125,7 @@ vector<vector<bool> > King::hint(int nowx, int nowy, vector<vector<int> > board)
 			anotherBoard[nowy][nowx + 1] = 1;	//move hint
 		}
 	}
-	if (nowx - 1 > 3)							//left side
+	if (nowx - 1 >= 3)							//left side
 	{
 		if (board[nowy][nowx - 1] != 0 && !getCamp() && board[nowy][nowx - 1] <= 7)
 		{
