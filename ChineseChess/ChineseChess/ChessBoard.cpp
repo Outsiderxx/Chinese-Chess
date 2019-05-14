@@ -522,3 +522,49 @@ void ChessBoard::printStatus(int chessX, int chessY)
 			cout << curX + 1;
 	}
 }
+
+void ChessBoard::sethintBoard(vector<vector<bool>> returned)
+{
+	hintBoard = returned;
+}
+vector<vector<bool>>ChessBoard::gethintBoard()
+{
+	return hintBoard;
+}
+void ChessBoard::printHint(vector<vector<bool>>hints)
+{
+	int x = 30, y = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		y = y + 2;
+		gotoxy(x, y);
+		for (int j = 0; j < 9; j++)
+		{
+			x = x + 4;
+			gotoxy(x, y);
+			if (hints[i][j] == 1)
+			{
+				switch (curBoard[i][j])
+				{
+				case 0: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112); cout << "  ";	break; }
+				case 1: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "將";	break; }
+				case 2: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "士";	break; }
+				case 3: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "象";	break; }
+				case 4: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "車";	break; }
+				case 5: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "馬";	break; }
+				case 6: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "包";	break; }
+				case 7: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "卒";	break; }
+				case 8: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "帥";	break; }
+				case 9: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "仕";	break; }
+				case 10: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "相";	break; }
+				case 11: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "車";	break; }
+				case 12: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "傌";	break; }
+				case 13: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "炮";	break; }
+				case 14: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "兵";	break; }
+				}
+			}
+		}
+		cout << endl;
+		x = 30;
+	}
+}

@@ -44,8 +44,13 @@ public:
 	void printChess(int);
 	//戰況顯示
 	void printStatus(int,int);
+	//走棋提示
+	void printHint(vector<vector<bool>>);
+	void sethintBoard(vector<vector<bool>>);
+	vector<vector<bool>> gethintBoard();
 private:
 	vector<vector<int>> curBoard;
+	vector<vector<bool>> hintBoard;
  	vector<vector<vector<int>>> preBoard;
 	bool turn;
 	int curX, curY;

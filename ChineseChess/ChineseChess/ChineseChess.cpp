@@ -96,6 +96,8 @@ void ChineseChess::playGame()
 						chess->setx(board.getCurX());
 						chess->sety(board.getCurY());
 						chess->setCamp(board.getTurn());
+						board.sethintBoard(chess->hint(board.getCurX(), board.getCurY(), board.getBoard()));
+						board.printHint(board.gethintBoard());
 						gotoxy(34 + 4 * board.getCurX(), 2 + 2 * board.getCurY());
 					}
 				}
@@ -110,14 +112,17 @@ void ChineseChess::playGame()
 						board.printStatus(chess->getx(),chess->gety());
 						//進行移動
 						haveWin = board.move(chess);
-						//是否有王對王情況出現
-						if (board.kingMeetKing(board.getBoard()))
+						if (haveWin == 0)
 						{
-							//王對王出現時，對方勝利
-							if (board.getTurn())
-								haveWin = 1;
-							else
-								haveWin = 2;
+							//是否有王對王情況出現
+							if (board.kingMeetKing(board.getBoard()))
+							{
+								//王對王出現時，對方勝利
+								if (board.getTurn())
+									haveWin = 1;
+								else
+									haveWin = 2;
+							}
 						}
 						//改變選棋狀態
 						haveChose = 0;
@@ -183,6 +188,7 @@ void ChineseChess::playGame()
 				gotoxy(85, 8);
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 				cout << "                     ";
+				board.printBoard();
 				gotoxy(34 + 4 * board.getCurX(), 2 + 2 * board.getCurY());
 			}
 		}

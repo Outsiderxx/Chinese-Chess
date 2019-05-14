@@ -36,17 +36,21 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 					//move again.
 					return 0;
 				}
-				else
+				else if (obstacleCount == 1)
 				{
-					if (obstacleCount == 1)
+					if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
+					else
 					{
-						if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
-						else
-						{
-							return 1;
-						}
+						return 1;
 					}
-					else return 1;
+				}
+				else if (obstacleCount == 0)
+				{
+					if (board[dest_y][dest_x] != 0) return 0; //no target to eat.
+					else
+					{
+						return 1;
+					}
 				}
 			}
 			else if (dest_y > nowy) //go down.
@@ -62,17 +66,21 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 				{
 					return 0;
 				}
-				else
+				else if (obstacleCount == 1)
 				{
-					if (obstacleCount == 1)
+					if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
+					else
 					{
-						if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
-						else
-						{
-							return 1;
-						}
+						return 1;
 					}
-					else return 1;
+				}
+				else if (obstacleCount == 0)
+				{
+					if (board[dest_y][dest_x] != 0) return 0; //no target to eat.
+					else
+					{
+						return 1;
+					}
 				}
 			}
 		}
@@ -92,17 +100,21 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 				{
 					return 0;
 				}
-				else
+				else if (obstacleCount == 1)
 				{
-					if (obstacleCount == 1)
+					if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
+					else
 					{
-						if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
-						else
-						{
-							return 1;
-						}
+						return 1;
 					}
-					else return 1;
+				}
+				else if (obstacleCount == 0)
+				{
+					if (board[dest_y][dest_x] != 0) return 0; //no target to eat.
+					else
+					{
+						return 1;
+					}
 				}
 			}
 			else if (dest_x > nowx) //go right.
@@ -118,17 +130,21 @@ bool bubble::isMovable(int dest_x, int dest_y, vector<vector<int>> board)
 				{
 					return 0;
 				}
-				else
+				else if (obstacleCount == 1)
 				{
-					if (obstacleCount == 1)
+					if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
+					else
 					{
-						if (board[dest_y][dest_x] == 0) return 0; //no target to eat.
-						else
-						{
-							return 1;
-						}
+						return 1;
 					}
-					else return 1;
+				}
+				else if (obstacleCount == 0)
+				{
+					if (board[dest_y][dest_x] != 0) return 0; //no target to eat.
+					else
+					{
+						return 1;
+					}
 				}
 			}
 		}
@@ -163,11 +179,11 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 	int obstacleCnt = 0;
 	for (int i = nowx - 1; i >= 0; --i) // go left
 	{
-		if (board[nowy][i] == 0)
+		if (board[nowy][i] == 0 && obstacleCnt == 0)
 		{
-			if (obstacleCnt == 0) hint_board[nowy][i] = true;
+			hint_board[nowy][i] = true;
 		}
-		else
+		else if (board[nowy][i] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -180,18 +196,18 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[nowy][i] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	for (int i = nowx + 1; i <= 8; ++i) // go right
 	{
-		if (board[nowy][i] == 0)
+		if (board[nowy][i] == 0 && obstacleCnt == 0)
 		{
-			if (obstacleCnt == 0) hint_board[nowy][i] = true;
+			hint_board[nowy][i] = true;
 		}
-		else
+		else if (board[nowy][i] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -204,18 +220,18 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[nowy][i] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	for (int i = nowy - 1; i >= 0; --i) // go up
 	{
-		if (board[i][nowx] == 0)
+		if (board[i][nowx] == 0 && obstacleCnt == 0)
 		{
-			if (obstacleCnt == 0) hint_board[i][nowx] = true;
+			hint_board[i][nowx] = true;
 		}
-		else
+		else if (board[i][nowx] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -228,18 +244,18 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[i][nowx] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	for (int i = nowy + 1; i <= 9; ++i) // go down
 	{
-		if (board[i][nowx] == 0)
+		if (board[i][nowx] == 0 && obstacleCnt == 0)
 		{
-			if (obstacleCnt == 0) hint_board[i][nowx] = true;
+			hint_board[i][nowx] = true;
 		}
-		else
+		else if (board[i][nowx] != 0)
 		{
 			obstacleCnt++;
 			if (obstacleCnt == 2)
@@ -252,10 +268,10 @@ vector<vector<bool>> bubble::hint(int nowx, int nowy, vector<vector<int>> board)
 				{
 					hint_board[i][nowx] = getCamp() ? false : true;
 				}
-				obstacleCnt = 0;
 				break;
 			}
 		}
 	}
+	obstacleCnt = 0;
 	return hint_board;
 }
