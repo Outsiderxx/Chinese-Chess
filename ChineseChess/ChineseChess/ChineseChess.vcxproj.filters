@@ -48,10 +48,10 @@
     <ClCompile Include="Bubble.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="strart_menu.cpp">
+    <ClCompile Include="menu_operate.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="menu_operate.cpp">
+    <ClCompile Include="start_menu.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>

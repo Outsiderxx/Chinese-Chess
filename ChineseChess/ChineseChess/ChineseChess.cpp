@@ -172,10 +172,10 @@ void ChineseChess::playGame()
 				//顯示說明書
 				else if (leaveFlag == 2)
 				{
-					system("cls");
-					getManual();
-					initial_start();
-					board.printBoard();
+					gotoxy(39, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 244);	cout << "還敢偷看說明阿 ~ 菜雞 ! ! ";
+					gotoxy(39, 25);		system("pause");
+					gotoxy(39, 23);		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);	cout << "                             ";
+					gotoxy(39, 25);		cout << "                        ";	gotoxy(34 + 4 * board.getCurX(), 2 + 2 * board.getCurY());
 				}
 				//離開遊戲
 				else if (leaveFlag == 3)
@@ -260,7 +260,6 @@ void ChineseChess::action()
 			playGame();
 	}
 	else if (gameMode == 2)
-
 		getManual();
 	else if (gameMode == 3)
 		exitGame();
@@ -418,7 +417,7 @@ void ChineseChess::getManual()
 		string buffer;
 		while (!manualFile.eof())
 		{
-			for (int i = 0; i < 30 && getline(manualFile, buffer); i++)
+			for (int i = 0; i < 31 && getline(manualFile, buffer); i++)
 			{
 				cout << buffer << endl;
 			}

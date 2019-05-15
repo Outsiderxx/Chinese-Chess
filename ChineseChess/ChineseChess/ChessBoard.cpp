@@ -554,13 +554,13 @@ void ChessBoard::printHint(vector<vector<bool>>hints)
 				case 5: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "°¨";	break; }
 				case 6: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "¥]";	break; }
 				case 7: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 176); cout << "¨ò";	break; }
-				case 8: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "«Ó";	break; }
-				case 9: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "¥K";	break; }
-				case 10: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "¬Û";	break; }
-				case 11: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "¨®";	break; }
-				case 12: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "ØX";	break; }
-				case 13: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "¬¶";	break; }
-				case 14: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 188); cout << "§L";	break; }
+				case 8: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "«Ó";	break; }
+				case 9: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "¥K";	break; }
+				case 10: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "¬Û";	break; }
+				case 11: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "¨®";	break; }
+				case 12: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "ØX";	break; }
+				case 13: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "¬¶";	break; }
+				case 14: {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 180); cout << "§L";	break; }
 				}
 			}
 		}
