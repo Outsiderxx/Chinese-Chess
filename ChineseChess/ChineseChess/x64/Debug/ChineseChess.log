@@ -1,1 +1,28 @@
-﻿  ChineseChess.vcxproj -> D:\My file\Github\Chinese-chess\ChineseChess\x64\Debug\ChineseChess.exe
+﻿  ChineseChess.cpp
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(40): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(453): note: 請參閱 'getch' 的宣告
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(210): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(453): note: 請參閱 'getch' 的宣告
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(214): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(453): note: 請參閱 'getch' 的宣告
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(334): warning C4267: '引數': 將 'size_t' 轉換為 'int'，資料可能遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(347): warning C4267: '引數': 將 'size_t' 轉換為 'int'，資料可能遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(349): warning C4267: '=': 將 'size_t' 轉換為 'int'，資料可能遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(356): warning C4267: '引數': 將 'size_t' 轉換為 'int'，資料可能遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(339): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(453): note: 請參閱 'getch' 的宣告
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(343): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(453): note: 請參閱 'getch' 的宣告
+d:\my file\github\chinese-chess\chinesechess\chinesechess\chinesechess.cpp(372): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(453): note: 請參閱 'getch' 的宣告
+  start_menu.cpp
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(44): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(45): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(46): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(47): warning C4244: '引數': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(53): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(57): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(73): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
+d:\my file\github\chinese-chess\chinesechess\chinesechess\start_menu.cpp(77): warning C4244: '=': 將 'double' 轉換為 'SHORT'，由於類型不同，可能導致資料遺失
+  正在產生程式碼...
+  ChineseChess.vcxproj -> D:\My file\Github\Chinese-chess\ChineseChess\x64\Debug\ChineseChess.exe
